@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "662821701274",
+    "firebase_url": "https://fastfood-8cdb7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fastfood-8cdb7",
+    "storage_bucket": "fastfood-8cdb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662821701274:android:6e479c39f43e1d37980123",
+        "android_client_info": {
+          "package_name": "hainb21127.poly.appfastfood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4XnWT8YpTbgj7zKphdYXUDNwCv1wQxWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662821701274:android:f3bbf24178a8f54e980123",
+        "android_client_info": {
+          "package_name": "hainb21127.poly.appfastfood_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4XnWT8YpTbgj7zKphdYXUDNwCv1wQxWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
