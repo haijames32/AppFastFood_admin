@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">AppFastFood_admin</string>
+    <string name="app_name">FastFood</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_sp">Products</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_lsp">Category</string>
+    <string name="nav_user">User</string>
+    <string name="nav_member">Member</string>
+    <string name="nav_tke">ThKe</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_profile">My Profile</string>
+    <string name="nav_change_pass">Change Password</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
