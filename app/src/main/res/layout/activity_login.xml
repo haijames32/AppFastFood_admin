@@ -39,12 +39,12 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_username_login"
+            android:id="@+id/ed_email_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/person_24"
             android:drawablePadding="8dp"
-            android:hint="Username" />
+            android:hint="Email" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
