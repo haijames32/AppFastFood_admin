@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 
 import hainb21127.poly.appfastfood_admin.R;
 
-
 public class UserFrag extends Fragment {
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false);
+
     }
 }

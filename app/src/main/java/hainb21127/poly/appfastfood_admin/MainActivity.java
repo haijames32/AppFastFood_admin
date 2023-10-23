@@ -20,10 +20,10 @@ import com.google.android.material.navigation.NavigationView;
 
 import hainb21127.poly.appfastfood_admin.Fragment.CartFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.HomeFrag;
-import hainb21127.poly.appfastfood_admin.Fragment.MemberFrag;
+import hainb21127.poly.appfastfood_admin.Fragment.UserFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.ProductsFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.ThongKeFrag;
-import hainb21127.poly.appfastfood_admin.Fragment.UserFrag;
+import hainb21127.poly.appfastfood_admin.Fragment.MemberFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.loaiSPFrag;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -105,14 +105,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if (id == R.id.nav_user){
             if (currentFragment!=FRAMENT_USER){
-                replaceFragment(new UserFrag());
+                replaceFragment(new MemberFrag());
                 toolbar.setTitle("User");
                 currentFragment = FRAMENT_USER;
             }
 
         }else if (id == R.id.nav_member){
             if (currentFragment!=FRAMENT_MEMBER){
-                replaceFragment(new MemberFrag());
+                replaceFragment(new UserFrag());
                 toolbar.setTitle("Member");
                 currentFragment = FRAMENT_MEMBER;
             }
