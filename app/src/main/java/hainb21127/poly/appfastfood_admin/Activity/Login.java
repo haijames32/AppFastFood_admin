@@ -37,17 +37,6 @@ public class Login extends AppCompatActivity {
         ed_email_login = findViewById(R.id.ed_email_login);
         ed_pw_login = findViewById(R.id.ed_pw_login);
         btn_login = findViewById(R.id.btn_login);
-        create_account = findViewById(R.id.create_account);
-
-        Intent intent = new Intent(this, Register.class);
-        Intent intent1 = new Intent(this, MainActivity.class);
-
-        create_account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intent);
-            }
-        });
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

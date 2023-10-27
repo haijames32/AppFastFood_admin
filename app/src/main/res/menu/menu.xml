@@ -13,17 +13,13 @@
         android:icon="@drawable/shopping_cart"
         android:title="Đơn hàng" />
     <item
-        android:id="@+id/nav_loaispham"
-        android:icon="@drawable/list_circle_24"
-        android:title="Loại sản phẩm" />
-    <item
         android:id="@+id/nav_user"
         android:icon="@drawable/person_24"
-        android:title="Quản lý user" />
+        android:title="Quản lý Nhân Viên" />
     <item
         android:id="@+id/nav_member"
         android:icon="@drawable/people_24"
-        android:title="Quản lý member" />
+        android:title="Quản lý Khách hàng" />
     <item
         android:id="@+id/nav_thongke"
         android:icon="@drawable/equalizer_24"
@@ -38,7 +34,7 @@
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout_24"
-                android:title="Exit" />
+                android:title="Logout" />
         </menu>
     </item>
 </menu>

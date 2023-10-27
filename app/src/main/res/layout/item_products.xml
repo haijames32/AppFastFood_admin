@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_width="170dp"
+    android:layout_height="200dp"
+    android:layout_margin="7dp"
+    app:cardCornerRadius="15dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
+
             <ImageView
-                android:padding="5dp"
                 android:id="@+id/item_img_prod"
-                android:layout_gravity="center"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/logo" />
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/pizza1"/>
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/tv_name_product"
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="Pepperoni Pizza"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp" />
+                android:textSize="16dp"
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/tv_price_product"
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="$ 13.10"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="5dp"
+                android:text="59.000 đ"
+                android:textColor="#FF5722"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>
