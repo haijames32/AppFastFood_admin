@@ -31,12 +31,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int FRAMENT_HOME =0;
     public static final int FRAMENT_SP =1;
     public static final int FRAMENT_CART =2;
-    public static final int FRAMENT_LSP =3;
-    public static final int FRAMENT_USER =4;
-    public static final int FRAMENT_MEMBER =5;
-    public static final int FRAMENT_TKE =6;
-    public static final int FRAMENT_GTHIEU =7;
-    public static final int FRAMENT_LOG =8;
+    public static final int FRAMENT_USER =3;
+    public static final int FRAMENT_MEMBER =4;
+    public static final int FRAMENT_TKE =5;
+    public static final int FRAMENT_GTHIEU =6;
+    public static final int FRAMENT_LOG =7;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     FrameLayout frameLayout;
@@ -94,13 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new CartFrag());
                 toolbar.setTitle("Cart");
                 currentFragment = FRAMENT_CART;
-            }
-
-        }else if (id == R.id.nav_loaispham){
-            if (currentFragment!=FRAMENT_LSP){
-                replaceFragment(new loaiSPFrag());
-                toolbar.setTitle("Category");
-                currentFragment = FRAMENT_LSP;
             }
 
         }else if (id == R.id.nav_user){
