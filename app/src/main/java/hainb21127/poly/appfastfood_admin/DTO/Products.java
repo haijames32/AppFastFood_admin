@@ -6,17 +6,18 @@ public class Products {
     int giasp;
     String image;
     String mota;
+    String category;
 
     public Products() {
     }
 
-    public Products(String id, String tensp, int giasp, String image, String mota) {
-        this.id = id;
+    public Products(String tensp, int giasp, String image, String mota) {
         this.tensp = tensp;
         this.giasp = giasp;
         this.image = image;
         this.mota = mota;
     }
+
 
     public String getId() {
         return id;
@@ -57,4 +58,5 @@ public class Products {
     public void setMota(String mota) {
         this.mota = mota;
     }
+
 }

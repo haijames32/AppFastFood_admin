@@ -99,7 +99,7 @@ public class MemberFrag extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -13,11 +13,10 @@
         app:cardCornerRadius="20dp">
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingTop="25dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:background="@drawable/bg_item"
             android:orientation="vertical">
 
