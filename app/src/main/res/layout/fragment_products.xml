@@ -7,7 +7,7 @@
     tools:context=".Fragment.ProductsFrag">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_products_frament"
+        android:id="@+id/rcv_product_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"

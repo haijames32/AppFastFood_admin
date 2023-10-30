@@ -3,11 +3,13 @@ package hainb21127.poly.appfastfood_admin.Fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,9 +64,12 @@ public class HomeFrag extends Fragment {
         rcv_category = view.findViewById(R.id.rcv_category);
         mpProducts = new ArrayList<>();
         adapter = new ProdAdapter(context);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager manager = new GridLayoutManager(context, 2);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(manager);
         getListProduct();
+
         // getListCategory
         mCategory = new ArrayList<>();
         adapterCategory = new CategoryAdapter(context);
