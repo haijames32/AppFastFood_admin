@@ -1,6 +1,7 @@
 package hainb21127.poly.appfastfood_admin.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import hainb21127.poly.appfastfood_admin.Activity.ProductsDetail;
 import hainb21127.poly.appfastfood_admin.DTO.Products;
 import hainb21127.poly.appfastfood_admin.R;
 import hainb21127.poly.appfastfood_admin.config.Utilities;
@@ -50,6 +52,18 @@ public class ProdAdapter extends RecyclerView.Adapter<ProdAdapter.ProdViewHolder
         holder.tv_name_prd.setText(prd.getTensp());
         holder.tv_price_prd.setText(Utilities.addDots(prd.getGiasp())+" VND" );
         Picasso.get().load(prd.getImage()).into(holder.img_prod);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ProductsDetail.class);
+                intent.putExtra("idPro",prd.getId());
+                intent.putExtra("namePro",prd.getTensp());
+                intent.putExtra("pricePro",prd.getGiasp());
+                intent.putExtra("imagePro",prd.getImage());
+                intent.putExtra("motaPro",prd.getMota());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

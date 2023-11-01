@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import hainb21127.poly.appfastfood_admin.R;
 
 
-public class loaiSPFrag extends Fragment {
+public class Profile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

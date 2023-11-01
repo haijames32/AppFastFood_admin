@@ -70,16 +70,17 @@ public class UserFrag extends Fragment {
                     khachHang.setName(dataSnapshot.child("fullname").getValue(String.class));
                     khachHang.setAddress(dataSnapshot.child("address").getValue(String.class));
                     khachHang.setPhonenumber(dataSnapshot.child("phone").getValue(Integer.class));
+                    khachHang.setEmail(dataSnapshot.child("email").getValue(String.class));
 
-                    // Lấy UID của người dùng từ cơ sở dữ liệu
-                    String userUID = dataSnapshot.getKey(); // Key ở đây chính là UID
-
-                    // Sử dụng UID để lấy thông tin người dùng từ Firebase Authentication
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    if (user != null && user.getUid().equals(userUID)) {
-                        String userEmail = user.getEmail();
-                        khachHang.setEmail(userEmail);
-                    }
+////                    // Lấy UID của người dùng từ cơ sở dữ liệu
+////                    String userUID = dataSnapshot.getKey(); // Key ở đây chính là UID
+//
+//                    // Sử dụng UID để lấy thông tin người dùng từ Firebase Authentication
+//                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+////                    if (user != null && user.getUid().equals(userUID)) {
+////                        String userEmail = user.getEmail();
+////                        khachHang.setEmail(userEmail);
+////                    }
 
                     mKhang.add(khachHang);
                 }

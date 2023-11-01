@@ -36,8 +36,6 @@ import hainb21127.poly.appfastfood_admin.R;
 public class NewProducts extends AppCompatActivity {
     Spinner spinner;
     private List<Category> listCat = new ArrayList<>();
-//    private List<String> listCat = new ArrayList<>();
-    List<String> id_Category;
     List<String> arrList = new ArrayList<>();
     private TextInputEditText ed_name_newsp, ed_gia_newsp, ed_mota_newsp,ed_img_newsp;
     Button btn_newsp;
