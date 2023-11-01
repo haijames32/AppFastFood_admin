@@ -11,22 +11,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
+import hainb21127.poly.appfastfood_admin.Activity.Signout;
 import hainb21127.poly.appfastfood_admin.Fragment.CartFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.HomeFrag;
+import hainb21127.poly.appfastfood_admin.Fragment.Profile;
 import hainb21127.poly.appfastfood_admin.Fragment.UserFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.ProductsFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.ThongKeFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.MemberFrag;
-import hainb21127.poly.appfastfood_admin.Fragment.loaiSPFrag;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -126,11 +127,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         }else if (id == R.id.nav_gthieu){
-            if (currentFragment!=FRAMENT_HOME){
-                replaceFragment(new ThongKeFrag());
-                currentFragment = FRAMENT_HOME;
+            if (currentFragment!=FRAMENT_GTHIEU){
+                replaceFragment(new Profile());
+                currentFragment = FRAMENT_GTHIEU;
             }
 
+        }else if (id == R.id.nav_logout){
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.signOut();
+            startActivity(new Intent(getApplication(), Signout.class));
+            finish();
         }
         return true;
     }

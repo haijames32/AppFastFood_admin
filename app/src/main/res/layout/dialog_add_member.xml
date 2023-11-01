@@ -9,12 +9,6 @@
     android:gravity="center"
     tools:context=".Fragment.HomeFrag">
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:background="#EAEAEA"
-           android:gravity="center">
            <LinearLayout
                android:orientation="vertical"
                android:layout_width="match_parent"
@@ -36,7 +30,11 @@
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_margin="10dp"
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
+                   android:layout_height="wrap_content"
+                   app:boxCornerRadiusBottomEnd="17dp"
+                   app:boxCornerRadiusBottomStart="17dp"
+                   app:boxCornerRadiusTopEnd="17dp"
+                   app:boxCornerRadiusTopStart="17dp">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_name_dialog_member"
                        android:layout_width="match_parent"
@@ -48,7 +46,11 @@
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_margin="10dp"
-                   android:layout_height="wrap_content">
+                   android:layout_height="wrap_content"
+                   app:boxCornerRadiusBottomEnd="17dp"
+                   app:boxCornerRadiusBottomStart="17dp"
+                   app:boxCornerRadiusTopEnd="17dp"
+                   app:boxCornerRadiusTopStart="17dp">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_email_dialog_member"
                        android:layout_width="match_parent"
@@ -60,7 +62,11 @@
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_margin="10dp"
-                   android:layout_height="wrap_content">
+                   android:layout_height="wrap_content"
+                   app:boxCornerRadiusBottomEnd="17dp"
+                   app:boxCornerRadiusBottomStart="17dp"
+                   app:boxCornerRadiusTopEnd="17dp"
+                   app:boxCornerRadiusTopStart="17dp">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_phone_dialog_member"
                        android:layout_width="match_parent"
@@ -72,19 +78,28 @@
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_margin="10dp"
-                   android:layout_height="wrap_content">
+                   android:layout_height="wrap_content"
+                   app:boxCornerRadiusBottomEnd="17dp"
+                   app:boxCornerRadiusBottomStart="17dp"
+                   app:boxCornerRadiusTopEnd="17dp"
+                   app:boxCornerRadiusTopStart="17dp">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_level_dialog_member"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:drawableLeft="@drawable/admin_24"
                        android:drawablePadding="8dp"
+                       android:text="2"
                        android:hint="Cấp độ quản trị" />
                </com.google.android.material.textfield.TextInputLayout>
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_margin="10dp"
-                   android:layout_height="wrap_content">
+                   android:layout_height="wrap_content"
+                   app:boxCornerRadiusBottomEnd="17dp"
+                   app:boxCornerRadiusBottomStart="17dp"
+                   app:boxCornerRadiusTopEnd="17dp"
+                   app:boxCornerRadiusTopStart="17dp">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_passwd_dialog_member"
                        android:layout_width="match_parent"
@@ -97,7 +112,11 @@
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_margin="10dp"
-                   android:layout_height="wrap_content">
+                   android:layout_height="wrap_content"
+                   app:boxCornerRadiusBottomEnd="17dp"
+                   app:boxCornerRadiusBottomStart="17dp"
+                   app:boxCornerRadiusTopEnd="17dp"
+                   app:boxCornerRadiusTopStart="17dp">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_checkpw_dialog_member"
                        android:layout_width="match_parent"
@@ -107,8 +126,18 @@
                        android:drawablePadding="8dp"
                        android:hint="Xác nhận password" />
                </com.google.android.material.textfield.TextInputLayout>
-           </LinearLayout>
-       </LinearLayout>
 
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:gravity="center">
+                   <Button
+                       android:id="@+id/btn_add_dialog_member"
+                       android:layout_width="100dp"
+                       android:layout_height="wrap_content"
+                       android:text="Thêm"/>
+               </LinearLayout>
+           </LinearLayout>
 
 </ScrollView>

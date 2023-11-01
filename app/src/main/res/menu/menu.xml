@@ -30,7 +30,7 @@
             <item
                 android:id="@+id/nav_gthieu"
                 android:icon="@drawable/person_24"
-                android:title="Giới thiệu" />
+                android:title="Đổi mât khẩu" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout_24"

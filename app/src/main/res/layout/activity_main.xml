@@ -20,7 +20,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/white"
+        android:background="#7AF480"
         app:titleTextColor="@color/black"
         android:theme="@style/Theme.AppCompat.Light"
         android:id="@+id/toolbar"/>

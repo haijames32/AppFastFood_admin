@@ -1,9 +1,6 @@
 package hainb21127.poly.appfastfood_admin.Fragment;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,13 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import hainb21127.poly.appfastfood_admin.Activity.ChooseImage;
 import hainb21127.poly.appfastfood_admin.Activity.NewProducts;
 import hainb21127.poly.appfastfood_admin.Activity.Tester;
 import hainb21127.poly.appfastfood_admin.Adapter.CategoryAdapter;
@@ -79,6 +73,7 @@ public class ProductsFrag extends Fragment {
             public void onClick(View view) {
 //                startActivity(new Intent(getActivity(), NewProducts.class));
                 startActivity(new Intent(getActivity(), Tester.class));
+//                startActivity(new Intent(getActivity(), ChooseImage.class));
             }
         });
     }

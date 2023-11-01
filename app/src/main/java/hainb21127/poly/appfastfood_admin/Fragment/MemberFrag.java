@@ -20,6 +20,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ import hainb21127.poly.appfastfood_admin.database.FirebaseDB;
 public class MemberFrag extends Fragment {
 
     FloatingActionButton btn_add;
+
     UserAdapter adapter;
 
     Context context;
@@ -109,10 +111,12 @@ public class MemberFrag extends Fragment {
         TextInputEditText ed_name, ed_email, ed_phone,
                 ed_level, ed_passwd, ed_confirmpw;
         EditText ed_image;
+        Button btn_add_member;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_member, null);
 
+        btn_add_member = view.findViewById(R.id.btn_add_dialog_member);
         ed_name = view.findViewById(R.id.ed_name_dialog_member);
         ed_email = view.findViewById(R.id.ed_email_dialog_member);
         ed_phone = view.findViewById(R.id.ed_phone_dialog_member);
@@ -123,25 +127,27 @@ public class MemberFrag extends Fragment {
 
         builder.setView(view);
         builder.setTitle("New User");
-        builder.setPositiveButton("New", new DialogInterface.OnClickListener() {
+        btn_add_member.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(View view) {
                 String textName = ed_name.getText().toString();
                 String textEmail = ed_email.getText().toString();
                 String textPhone = ed_phone.getText().toString();
-                Integer textLevel = Integer.valueOf(ed_level.getText().toString());
+                int textLevel = Integer.valueOf(ed_level.getText().toString());
                 String textPasswd = ed_passwd.getText().toString();
                 String textConfirmPwd = ed_confirmpw.getText().toString();
                 String textImage = ed_image.getText().toString();
 
-                String phoneNumberPattern = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
 
-                if (TextUtils.isEmpty(textName)) {
-                    Toast.makeText(getContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
+
+                String phoneNumberPattern = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
+                if (TextUtils.isEmpty(textImage)) {
+                    ed_image.setError("Image is required");
+                    ed_image.requestFocus();
+                } else if (TextUtils.isEmpty(textName)) {
                     ed_name.setError("Name is required");
                     ed_name.requestFocus();
                 } else if (TextUtils.isEmpty(textEmail)) {
-                    Toast.makeText(getContext(), "Please enter your email", Toast.LENGTH_SHORT).show();
                     ed_email.setError("Email is required");
                     ed_email.requestFocus();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(textEmail).matches()) {
@@ -149,7 +155,6 @@ public class MemberFrag extends Fragment {
                     ed_email.setError("Vaild Email is required");
                     ed_email.requestFocus();
                 } else if (TextUtils.isEmpty(textPhone)) {
-                    Toast.makeText(getContext(), "Please enter your phone number", Toast.LENGTH_SHORT).show();
                     ed_phone.setError("Phone number is required");
                     ed_phone.requestFocus();
                 } else if (!textPhone.matches(phoneNumberPattern)) {
@@ -160,12 +165,10 @@ public class MemberFrag extends Fragment {
                     Toast.makeText(getContext(), "Please re-enter your phone number", Toast.LENGTH_SHORT).show();
                     ed_phone.setError("Phone number should be 10 digits");
                     ed_phone.requestFocus();
-//                } else if (TextUtils.isEmpty(textLevel + "")) {
-//                    Toast.makeText(getContext(), "Please enter level qtv", Toast.LENGTH_SHORT).show();
-//                    ed_level.setError("Level is required");
-//                    ed_level.requestFocus();
+                } else if (TextUtils.isEmpty(textLevel + "")) {
+                    ed_level.setError("Level is required");
+                    ed_level.requestFocus();
                 } else if (TextUtils.isEmpty(textPasswd)) {
-                    Toast.makeText(getContext(), "Please enter your Password", Toast.LENGTH_SHORT).show();
                     ed_passwd.setError("Password is required");
                     ed_passwd.requestFocus();
                 } else if (textPasswd.length() < 6) {
@@ -173,25 +176,30 @@ public class MemberFrag extends Fragment {
                     ed_passwd.setError("Password too weak");
                     ed_passwd.requestFocus();
                 } else if (TextUtils.isEmpty(textConfirmPwd)) {
-                    Toast.makeText(getContext(), "Please confirm your Password", Toast.LENGTH_SHORT).show();
                     ed_confirmpw.setError("Password Confirmation is required");
                     ed_confirmpw.requestFocus();
                 } else if (!textPasswd.equals(textConfirmPwd)) {
                     Toast.makeText(getContext(), "Please same same Password", Toast.LENGTH_SHORT).show();
-                    ed_confirmpw.setError("Password Confirmation is required");
+                    ed_confirmpw.setError("Password not ");
                     ed_confirmpw.requestFocus();
 
-                    ed_passwd.clearComposingText();
-                    ed_confirmpw.clearComposingText();
                 } else {
                     registerUser(textImage, textName, textEmail, textPhone, textLevel, textPasswd);
+                    ed_image.setText("");
+                    ed_name.setText("");
+                    ed_email.setText("");
+                    ed_phone.setText("");
+                    ed_passwd.setText("");
+                    ed_confirmpw.setText("");
                 }
             }
         });
+
         builder.setNegativeButton("Done", null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 
     private void registerUser(String textImage, String textName, String textEmail, String textPhone, Integer textLevel, String textPasswd) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -211,12 +219,12 @@ public class MemberFrag extends Fragment {
                                 Log.i("user", "complete: " + task.toString());
                                 Toast.makeText(getActivity(), "New member Success" + task.toString(), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), "Error save memebr", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Error save memebr" + task.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(getActivity(), "New member Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "New member Failed "+task.toString(), Toast.LENGTH_SHORT).show();
                 }
 
             }

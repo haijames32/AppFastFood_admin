@@ -24,6 +24,15 @@
         android:theme="@style/Theme.AppFastFood_admin"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ProductsDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Signout"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ChooseImage"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Tester"
             android:exported="false" />
         <activity
