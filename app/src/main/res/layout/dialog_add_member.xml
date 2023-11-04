@@ -22,11 +22,22 @@
                    android:src="@drawable/avatar_user_male"
                    android:layout_margin="5dp"
                    android:text="Thêm quản lý"/>
-               <EditText
+               <com.google.android.material.textfield.TextInputLayout
                    android:layout_margin="10dp"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:id="@+id/ed_img_member_dialog"/>
+                   app:boxCornerRadiusBottomEnd="17dp"
+                   app:boxCornerRadiusBottomStart="17dp"
+                   app:boxCornerRadiusTopEnd="17dp"
+                   app:boxCornerRadiusTopStart="17dp">
+                   <com.google.android.material.textfield.TextInputEditText
+                       android:id="@+id/ed_img_member_dialog"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:drawableLeft="@drawable/image_24"
+                       android:drawablePadding="8dp"
+                       android:hint="Ảnh" />
+               </com.google.android.material.textfield.TextInputLayout>
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_margin="10dp"
                    android:layout_width="match_parent"
@@ -75,6 +86,24 @@
                        android:drawablePadding="8dp"
                        android:hint="Số điện thoại" />
                </com.google.android.material.textfield.TextInputLayout>
+<!--               <com.google.android.material.textfield.TextInputLayout-->
+<!--                   android:layout_width="match_parent"-->
+<!--                   android:layout_margin="10dp"-->
+<!--                   android:layout_height="wrap_content"-->
+<!--                   app:boxCornerRadiusBottomEnd="17dp"-->
+<!--                   app:boxCornerRadiusBottomStart="17dp"-->
+<!--                   app:boxCornerRadiusTopEnd="17dp"-->
+<!--                   app:boxCornerRadiusTopStart="17dp">-->
+<!--                   <com.google.android.material.textfield.TextInputEditText-->
+<!--                       android:id="@+id/ed_level_dialog_member"-->
+<!--                       android:layout_width="match_parent"-->
+<!--                       android:layout_height="wrap_content"-->
+<!--                       android:drawableLeft="@drawable/admin_24"-->
+<!--                       android:drawablePadding="8dp"-->
+<!--                       android:text="2"-->
+<!--                       android:enabled="false"-->
+<!--                       android:hint="Cấp độ quản trị" />-->
+<!--               </com.google.android.material.textfield.TextInputLayout>-->
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_margin="10dp"
@@ -82,24 +111,8 @@
                    app:boxCornerRadiusBottomEnd="17dp"
                    app:boxCornerRadiusBottomStart="17dp"
                    app:boxCornerRadiusTopEnd="17dp"
-                   app:boxCornerRadiusTopStart="17dp">
-                   <com.google.android.material.textfield.TextInputEditText
-                       android:id="@+id/ed_level_dialog_member"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:drawableLeft="@drawable/admin_24"
-                       android:drawablePadding="8dp"
-                       android:text="2"
-                       android:hint="Cấp độ quản trị" />
-               </com.google.android.material.textfield.TextInputLayout>
-               <com.google.android.material.textfield.TextInputLayout
-                   android:layout_width="match_parent"
-                   android:layout_margin="10dp"
-                   android:layout_height="wrap_content"
-                   app:boxCornerRadiusBottomEnd="17dp"
-                   app:boxCornerRadiusBottomStart="17dp"
-                   app:boxCornerRadiusTopEnd="17dp"
-                   app:boxCornerRadiusTopStart="17dp">
+                   app:boxCornerRadiusTopStart="17dp"
+                   app:passwordToggleEnabled="true">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_passwd_dialog_member"
                        android:layout_width="match_parent"
@@ -116,7 +129,8 @@
                    app:boxCornerRadiusBottomEnd="17dp"
                    app:boxCornerRadiusBottomStart="17dp"
                    app:boxCornerRadiusTopEnd="17dp"
-                   app:boxCornerRadiusTopStart="17dp">
+                   app:boxCornerRadiusTopStart="17dp"
+                   app:passwordToggleEnabled="true">
                    <com.google.android.material.textfield.TextInputEditText
                        android:id="@+id/ed_checkpw_dialog_member"
                        android:layout_width="match_parent"

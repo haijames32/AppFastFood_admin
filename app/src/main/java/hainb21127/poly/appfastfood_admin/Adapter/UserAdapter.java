@@ -1,6 +1,8 @@
 package hainb21127.poly.appfastfood_admin.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import hainb21127.poly.appfastfood_admin.Activity.UpdateNV;
 import hainb21127.poly.appfastfood_admin.DTO.User;
 import hainb21127.poly.appfastfood_admin.R;
 
@@ -55,6 +58,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tv_phone.setText(user.getPhone());
         holder.tv_roles.setText(user.getLevel()+"");
         Picasso.get().load(user.getImage()).into(holder.img_member);
+        holder.editMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), UpdateNV.class);
+                intent.putExtra("nvId",user.getId());
+                intent.putExtra("avatar", user.getImage());
+                intent.putExtra("nvName",user.getName());
+                intent.putExtra("nvEmail",user.getEmail());
+                intent.putExtra("phoneNumber",user.getPhone());
+                intent.putExtra("roles",user.getLevel());
+                intent.putExtra("passwd",user.getPasswd());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -66,7 +83,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder {
-        ImageView img_member, edit_item_member, delete_item_member;
+        ImageView img_member, editMember, deleteMember;
         TextView tv_name, tv_email, tv_roles, tv_phone;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,8 +92,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tv_email = itemView.findViewById(R.id.tv_gmail_item_member);
             tv_roles = itemView.findViewById(R.id.tv_cv_item_member);
             tv_phone = itemView.findViewById(R.id.tv_phone_item_member);
-            edit_item_member = itemView.findViewById(R.id.edit_item_member);
-            delete_item_member = itemView.findViewById(R.id.delete_item_member);
+            editMember = itemView.findViewById(R.id.edit_item_member);
+            deleteMember = itemView.findViewById(R.id.delete_item_member);
         }
     }
 }

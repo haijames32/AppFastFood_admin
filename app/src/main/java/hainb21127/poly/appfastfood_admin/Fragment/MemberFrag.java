@@ -92,6 +92,7 @@ public class MemberFrag extends Fragment {
                 mUser.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
+                    user.setId(dataSnapshot.getKey());
                     mUser.add(user);
                     adapter.setDataUser(mUser);
                     rcView.setAdapter(adapter);
@@ -109,8 +110,7 @@ public class MemberFrag extends Fragment {
     @SuppressLint("MissingInflatedId")
     public void addMember() {
         TextInputEditText ed_name, ed_email, ed_phone,
-                ed_level, ed_passwd, ed_confirmpw;
-        EditText ed_image;
+                ed_level, ed_passwd, ed_confirmpw,ed_image;
         Button btn_add_member;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getLayoutInflater();
@@ -120,7 +120,7 @@ public class MemberFrag extends Fragment {
         ed_name = view.findViewById(R.id.ed_name_dialog_member);
         ed_email = view.findViewById(R.id.ed_email_dialog_member);
         ed_phone = view.findViewById(R.id.ed_phone_dialog_member);
-        ed_level = view.findViewById(R.id.ed_level_dialog_member);
+//        ed_level = view.findViewById(R.id.ed_level_dialog_member);
         ed_passwd = view.findViewById(R.id.ed_passwd_dialog_member);
         ed_confirmpw = view.findViewById(R.id.ed_checkpw_dialog_member);
         ed_image = view.findViewById(R.id.ed_img_member_dialog);
@@ -133,7 +133,7 @@ public class MemberFrag extends Fragment {
                 String textName = ed_name.getText().toString();
                 String textEmail = ed_email.getText().toString();
                 String textPhone = ed_phone.getText().toString();
-                int textLevel = Integer.valueOf(ed_level.getText().toString());
+//                int textLevel = Integer.valueOf(ed_level.getText().toString());
                 String textPasswd = ed_passwd.getText().toString();
                 String textConfirmPwd = ed_confirmpw.getText().toString();
                 String textImage = ed_image.getText().toString();
@@ -165,9 +165,9 @@ public class MemberFrag extends Fragment {
                     Toast.makeText(getContext(), "Please re-enter your phone number", Toast.LENGTH_SHORT).show();
                     ed_phone.setError("Phone number should be 10 digits");
                     ed_phone.requestFocus();
-                } else if (TextUtils.isEmpty(textLevel + "")) {
-                    ed_level.setError("Level is required");
-                    ed_level.requestFocus();
+//                } else if (TextUtils.isEmpty(textLevel + "")) {
+//                    ed_level.setError("Level is required");
+//                    ed_level.requestFocus();
                 } else if (TextUtils.isEmpty(textPasswd)) {
                     ed_passwd.setError("Password is required");
                     ed_passwd.requestFocus();
@@ -184,7 +184,7 @@ public class MemberFrag extends Fragment {
                     ed_confirmpw.requestFocus();
 
                 } else {
-                    registerUser(textImage, textName, textEmail, textPhone, textLevel, textPasswd);
+                    registerUser(textImage, textName, textEmail, textPhone, textPasswd);
                     ed_image.setText("");
                     ed_name.setText("");
                     ed_email.setText("");
@@ -201,7 +201,7 @@ public class MemberFrag extends Fragment {
     }
 
 
-    private void registerUser(String textImage, String textName, String textEmail, String textPhone, Integer textLevel, String textPasswd) {
+    private void registerUser(String textImage, String textName, String textEmail, String textPhone, String textPasswd) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -209,7 +209,8 @@ public class MemberFrag extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    User user = new User(textName, textPhone, textLevel, textImage, textEmail);
+                    int roles = 2;
+                    User user = new User(textName, textPhone, roles, textImage, textEmail);
                     String uid = task.getResult().getUser().getUid();
                     DatabaseReference reference = database.getReference("managers").child(uid);
                     reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -96,6 +96,7 @@ public class HomeFrag extends Fragment {
                 mCategory.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Category category = dataSnapshot.getValue(Category.class);
+                    category.setId(dataSnapshot.getKey());
                     mCategory.add(category);
                     adapterCategory.setDataCatogory(mCategory);
                     rcv_category.setAdapter(adapterCategory);
@@ -114,13 +115,13 @@ public class HomeFrag extends Fragment {
     private void getListProduct(){
         FirebaseDatabase database = FirebaseDB.getDatabaseInstance();
         DatabaseReference myRef = database.getReference("products");
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mpProducts.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Products product = dataSnapshot.getValue(Products.class);
+                    product.setId(dataSnapshot.getKey());
                     mpProducts.add(product);
                     adapter.setData(mpProducts);
                     recyclerView.setAdapter(adapter);

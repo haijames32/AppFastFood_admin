@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hainb21127.poly.appfastfood_admin.Activity.ChooseImage;
-import hainb21127.poly.appfastfood_admin.Activity.NewProducts;
 import hainb21127.poly.appfastfood_admin.Activity.Tester;
 import hainb21127.poly.appfastfood_admin.Adapter.CategoryAdapter;
 import hainb21127.poly.appfastfood_admin.Adapter.ProdAdapter;
@@ -48,6 +48,9 @@ public class ProductsFrag extends Fragment {
 
     CategoryAdapter adapterCate;
     List<String>listCategory;
+    Products products;
+
+    private String prodId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,7 +74,6 @@ public class ProductsFrag extends Fragment {
         fab_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), NewProducts.class));
                 startActivity(new Intent(getActivity(), Tester.class));
 //                startActivity(new Intent(getActivity(), ChooseImage.class));
             }
@@ -87,6 +89,7 @@ public class ProductsFrag extends Fragment {
                 mProduct.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Products product = dataSnapshot.getValue(Products.class);
+                    product.setId(dataSnapshot.getKey());
                     mProduct.add(product);
                     adapter1.setData(mProduct);
                     recyclerView.setAdapter(adapter1);
@@ -100,4 +103,5 @@ public class ProductsFrag extends Fragment {
             }
         });
     }
+
 }
