@@ -115,9 +115,8 @@ public class Tester extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
 
     private void uploadImageToFirebase(Uri imageUri, final String name, final Integer price, final String description, final String category) {
         if (imageUri != null) {

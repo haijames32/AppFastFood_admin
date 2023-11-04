@@ -1,7 +1,7 @@
 package hainb21127.poly.appfastfood_admin.DTO;
 
 public class User {
-
+    String id;
     String email;
     String name;
     String phone;
@@ -29,6 +29,14 @@ public class User {
         this.level = level;
         this.image = image;
         this.email = email;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
