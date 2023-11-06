@@ -10,17 +10,7 @@ public class User {
     String passwd;
     String image;
 
-
     public User() {
-    }
-
-    public User(String email, String name, String phone, int level, String passwd, String image) {
-        this.email = email;
-        this.name = name;
-        this.phone = phone;
-        this.level = level;
-        this.passwd = passwd;
-        this.image = image;
     }
 
     public User(String name, String phone, int level, String image, String email) {

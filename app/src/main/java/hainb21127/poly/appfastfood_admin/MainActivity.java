@@ -21,7 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import hainb21127.poly.appfastfood_admin.Activity.Signout;
-import hainb21127.poly.appfastfood_admin.Fragment.CartFrag;
+import hainb21127.poly.appfastfood_admin.Fragment.OrderFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.HomeFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.Profile;
 import hainb21127.poly.appfastfood_admin.Fragment.UserFrag;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }else if (id == R.id.nav_cart){
             if (currentFragment!=FRAMENT_CART){
-                replaceFragment(new CartFrag());
+                replaceFragment(new OrderFrag());
                 toolbar.setTitle("Cart");
                 currentFragment = FRAMENT_CART;
             }
