@@ -12,23 +12,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import hainb21127.poly.appfastfood_admin.DTO.User;
 import hainb21127.poly.appfastfood_admin.R;
 
 public class UpdateNV extends AppCompatActivity {
 
-    TextInputEditText image, name, email, phone,roles,passwd;
+    TextInputEditText image, name, email, phone,roles;
     String userId;
     ImageView avatarsto, btnBack;
     Button btnUpdate;
@@ -44,7 +50,6 @@ public class UpdateNV extends AppCompatActivity {
         email = findViewById(R.id.email_update_nv);
         phone = findViewById(R.id.phone_update_nv);
         roles = findViewById(R.id.roles_update_nv);
-        passwd = findViewById(R.id.passwd_update_nv);
         btnUpdate = findViewById(R.id.btnUpdate_nv);
         btnBack =findViewById(R.id.btnBack_nv);
 
@@ -58,21 +63,35 @@ public class UpdateNV extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String passwdUp = passwd.getText().toString();
-
-
+                String textName = name.getText().toString();
+                String textPhone = phone.getText().toString();
+                int textRoles = Integer.parseInt(roles.getText().toString());
+                String textImg = image.getText().toString();
+                String textEmail = email.getText().toString();
+                UserUpdate(textName,textPhone,textRoles,textImg,textEmail);
+                onBackPressed();
             }
         });
     }
-    private void UserUpdate(String passwd){
-        if (userId!=null){
+    private void UserUpdate(String name,String phone,Integer level, String image, String email){
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            FirebaseUser fbuser = auth.getCurrentUser();
-            DatabaseReference userRef = database.getReference("managers").child(userId);
+            DatabaseReference myRef = database.getReference("managers").child(userId);
+            User user = new User(name, phone,level,image,email);
 
-        }
+            myRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(UpdateNV.this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(UpdateNV.this, "Cập nhật thông tin không thành công", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
     }
+
     private void listData(){
         Intent intent = getIntent();
         userId = intent.getStringExtra("nvId");
@@ -88,7 +107,6 @@ public class UpdateNV extends AppCompatActivity {
         email.setText(textEmail);
         phone.setText(phoneNumber);
         roles.setText(lv+"");
-        passwd.setText(textPass);
         Picasso.get().load(avatar).into(avatarsto);
     }
 }

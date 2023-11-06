@@ -1,13 +1,22 @@
 package hainb21127.poly.appfastfood_admin.DTO;
 
 public class KhachHang {
+    String id;
     String name;
     String address;
     String email;
-    String passwd;
+    String image;
     int phonenumber;
 
     public KhachHang() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,12 +43,12 @@ public class KhachHang {
         this.email = email;
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getImage() {
+        return image;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getPhonenumber() {

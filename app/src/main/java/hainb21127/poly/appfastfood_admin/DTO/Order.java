@@ -1,13 +1,13 @@
 package hainb21127.poly.appfastfood_admin.DTO;
 
-public class Cart {
+public class Order {
     String id;
     String date;
-    String id_user;
+    KhachHang id_user;
     String status;
     int Tong;
 
-    public Cart() {
+    public Order() {
     }
 
     public String getId() {
@@ -26,11 +26,11 @@ public class Cart {
         this.date = date;
     }
 
-    public String getId_user() {
+    public KhachHang getId_user() {
         return id_user;
     }
 
-    public void setId_user(String id_user) {
+    public void setId_user(KhachHang id_user) {
         this.id_user = id_user;
     }
 

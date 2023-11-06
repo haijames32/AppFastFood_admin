@@ -2,16 +2,22 @@ package hainb21127.poly.appfastfood_admin.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,6 +64,43 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tv_phone.setText(user.getPhone());
         holder.tv_roles.setText(user.getLevel()+"");
         Picasso.get().load(user.getImage()).into(holder.img_member);
+
+//        if (holder.tv_roles.getText().toString().equals("1")){
+//            holder.deleteMember.setVisibility(View.VISIBLE);
+//            holder.editMember.setVisibility(View.VISIBLE);
+//        }
+        holder.deleteMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Thông báo");
+                builder.setMessage("Bạn có chắc chắn muốn xóa người này không?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference DBref = database.getReference("managers").child(user.getId());
+                        DBref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(view.getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(view.getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
         holder.editMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
