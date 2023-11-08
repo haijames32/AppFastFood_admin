@@ -5,14 +5,22 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hainb21127.poly.appfastfood_admin.Activity.OrderDetail;
@@ -60,14 +68,33 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.btnComfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference reference = database.getReference("orders").child(order.getId());
 
+                String text = "Đang giao hàng";
+
+                reference.child("trangthai").setValue(text).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(view.getContext(), "Xác nhận đơn hàng thành công", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(view.getContext(), "Xác nhận đơn hàng không thành công", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), OrderDetail.class);
-
+                intent.putExtra("idOrder",order.getId());
+                intent.putExtra("nameUser",order.getId_user().getName());
+                intent.putExtra("emailUser",order.getId_user().getEmail());
+                intent.putExtra("addressUser",order.getId_user().getAddress());
+                intent.putExtra("phoneUser",order.getId_user().getPhonenumber());
                 view.getContext().startActivity(intent);
             }
         });
@@ -82,7 +109,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView name,status,date,total,btnComfirm;
+        TextView name,status,date,total;
+        Button btnComfirm;
         ImageView imageView;
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);

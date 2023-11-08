@@ -66,8 +66,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             super(itemView);
             img_lsp = itemView.findViewById(R.id.img_cat_item);
             tv_name_lsp = itemView.findViewById(R.id.name_cat_item);
-            edit_lsp = itemView.findViewById(R.id.item_lsp_edit);
-            delete_lsp = itemView.findViewById(R.id.item_lsp_delete);
         }
     }
 }

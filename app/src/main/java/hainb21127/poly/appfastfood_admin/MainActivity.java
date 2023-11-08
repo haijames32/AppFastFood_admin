@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int FRAMENT_MEMBER =4;
     public static final int FRAMENT_TKE =5;
     public static final int FRAMENT_GTHIEU =6;
-    public static final int FRAMENT_LOG =7;
+    public static final int FRAMENT_CHAT =7;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     FrameLayout frameLayout;
@@ -118,7 +118,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("Member");
                 currentFragment = FRAMENT_MEMBER;
             }
-
+//        }else if (id == R.id.nav_chat){
+//            if (currentFragment!=FRAMENT_CHAT){
+//                replaceFragment(new ChatFrag());
+//                toolbar.setTitle("Box Chat");
+//                currentFragment = FRAMENT_CHAT;
+//            }
         }else if (id == R.id.nav_thongke){
             if (currentFragment!=FRAMENT_TKE){
                 replaceFragment(new ThongKeFrag());

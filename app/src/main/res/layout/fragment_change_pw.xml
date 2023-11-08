@@ -11,20 +11,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginBottom="20sp"
-            android:layout_height="30dp">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/prev_24"
-                android:id="@+id/img_back"/>
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content"
+            android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit password"
                 android:textStyle="bold"
-                android:layout_marginLeft="90dp"
-                android:textSize="19dp"/>
+                android:textSize="20dp"/>
 
         </LinearLayout>
 
