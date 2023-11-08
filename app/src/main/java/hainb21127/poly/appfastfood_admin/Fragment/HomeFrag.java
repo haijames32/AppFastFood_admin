@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import hainb21127.poly.appfastfood_admin.Activity.ChatBot;
 import hainb21127.poly.appfastfood_admin.Adapter.CategoryAdapter;
 import hainb21127.poly.appfastfood_admin.Adapter.ProdAdapter;
 import hainb21127.poly.appfastfood_admin.DTO.Category;
@@ -50,15 +53,17 @@ public class HomeFrag extends Fragment {
     List<Products> mpProducts;
     List<Category> mCategory;
     TextView tv_add;
+    FloatingActionButton floating;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.item_lsp, container, false);
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        floating = view.findViewById(R.id.fabChatBot);
         tv_add = view.findViewById(R.id.tv_add_home);
         recyclerView = view.findViewById(R.id.rcv_products);
         rcv_category = view.findViewById(R.id.rcv_category);
@@ -77,6 +82,12 @@ public class HomeFrag extends Fragment {
         rcv_category.setLayoutManager(linearManager);
         getListCategory();
 
+        floating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ChatBot.class));
+            }
+        });
         tv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -40,7 +40,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        Cart cart = new Cart();
+        Cart cart = mOrder.get(position);
         if (mOrder == null){
             return;
         }

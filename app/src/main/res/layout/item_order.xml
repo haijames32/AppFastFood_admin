@@ -90,14 +90,11 @@
             android:textStyle="bold"
             android:textColor="@color/colorAccent"
             android:id="@+id/orderPrice"/>
-        <TextView
+        <Button
             android:id="@+id/btnComfirm"
-            android:textSize="20sp"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:backgroundTint="#259EFF"
             android:visibility="invisible"
-            android:background="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Xác nhận"/>

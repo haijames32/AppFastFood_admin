@@ -20,6 +20,10 @@
         android:id="@+id/nav_member"
         android:icon="@drawable/people_24"
         android:title="Quản lý Khách hàng" />
+<!--    <item-->
+<!--        android:id="@+id/nav_chat"-->
+<!--        android:icon="@drawable/message_v24"-->
+<!--        android:title="Chat bot" />-->
     <item
         android:id="@+id/nav_thongke"
         android:icon="@drawable/equalizer_24"
