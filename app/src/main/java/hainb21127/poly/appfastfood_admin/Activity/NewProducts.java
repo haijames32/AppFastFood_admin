@@ -95,8 +95,15 @@ public class NewProducts extends AppCompatActivity {
         btn_newsp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String giaText = ed_gia_newsp.getText().toString();
+
+                if (TextUtils.isEmpty(giaText)) {
+                    Toast.makeText(NewProducts.this, "Vui lòng nhập giá sản phẩm", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 String textName = ed_name_newsp.getText().toString();
-                Integer intPrice = Integer.valueOf(ed_gia_newsp.getText().toString());
+                int intPrice = Integer.valueOf(giaText);
                 String textImage = ed_img_newsp.getText().toString();
                 String textDesr = ed_mota_newsp.getText().toString();
 
@@ -104,9 +111,14 @@ public class NewProducts extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(intPrice + "") || TextUtils.isEmpty(textImage) || TextUtils.isEmpty(textDesr)
                         || TextUtils.isEmpty(textName) || TextUtils.isEmpty(selectedCategory)) {
-                    Toast.makeText(NewProducts.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewProducts.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
+
+                }else if (intPrice <= 0) {
+                    Toast.makeText(NewProducts.this, "Giá sản phẩm không hợp lệ", Toast.LENGTH_LONG).show();
+                } else if (selectedCategory.equals("Chọn danh mục")) {
+                    Toast.makeText(NewProducts.this, "Vui lòng chọn danh mục", Toast.LENGTH_LONG).show();
                 } else {
-//                    NEwSanPham(textName, intPrice, textImage, textDesr, selectedCategory);
+                    // Tiến hành tải lên sản phẩm
                     uploadImageToFirebase(selectedImageUri, textName, intPrice, textDesr, selectedCategory);
                     ed_name_newsp.setText("");
                     ed_gia_newsp.setText("");
