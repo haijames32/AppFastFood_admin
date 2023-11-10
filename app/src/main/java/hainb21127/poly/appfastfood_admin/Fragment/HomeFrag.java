@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,23 +15,32 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +64,9 @@ public class HomeFrag extends Fragment {
     List<Category> mCategory;
     TextView tv_add;
     FloatingActionButton floating;
+    private static final int IMAGE_PICK_CODE = 1001;
+    ImageView chooseImage;
+    TextInputEditText img_lsp, ed_name;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.item_lsp, container, false);
@@ -81,6 +94,8 @@ public class HomeFrag extends Fragment {
         LinearLayoutManager linearManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false);
         rcv_category.setLayoutManager(linearManager);
         getListCategory();
+
+        oninVisible();
 
         floating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,14 +162,60 @@ public class HomeFrag extends Fragment {
         });
     }
 
-    private void addCategory(){
-        EditText img_lsp, ed_name;
+    private void newCategory(String imageSelected, String textName){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference reference = database.getReference("category").push();
+
+        Category category = new Category( imageSelected,textName);
+        reference.setValue(category).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    private void oninVisible(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int roles = snapshot.child("level").getValue(Integer.class);
+                if (roles != 1){
+                    tv_add.setVisibility(View.INVISIBLE);
+                }else {
+                    tv_add.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void addCategory() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_loaisp,null);
+        View view = inflater.inflate(R.layout.dialog_loaisp, null);
 
-        img_lsp = view.findViewById(R.id.dialog_lsp_img);
         ed_name = view.findViewById(R.id.dialog_lsp_name);
+        chooseImage = view.findViewById(R.id.imageCategory_dialog);
+
+        chooseImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mở cửa sổ chọn ảnh từ thiết bị
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, IMAGE_PICK_CODE);
+            }
+        });
 
         dialog.setView(view);
         dialog.setTitle("New Category");
@@ -162,37 +223,53 @@ public class HomeFrag extends Fragment {
         dialog.setPositiveButton("New", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String textImage = img_lsp.getText().toString();
                 String textName = ed_name.getText().toString();
 
-                if (TextUtils.isEmpty(textImage) || TextUtils.isEmpty(textName)){
+                if (TextUtils.isEmpty(textName)){
                     Toast.makeText(getActivity(), "Please enter data", Toast.LENGTH_SHORT).show();
-                    img_lsp.setError("Don't leave it empty");
                     ed_name.setError("Name is required");
-                }else {
-                    newCategory(textImage, textName);
+                } else if (chooseImage.getDrawable() == null) {
+                    Toast.makeText(getActivity(), "Please choose an image", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Lấy URI của ảnh đã chọn
+                    Uri imageUri = (Uri) chooseImage.getTag();
+                    // Tạo một StorageReference để đại diện cho đường dẫn nơi ảnh sẽ được lưu trữ
+                    StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + imageUri.getLastPathSegment());
+                    // Tải lên ảnh lên Firebase Storage
+                    storageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Lấy URL của ảnh đã tải lên
+                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri downloadUrl) {
+                                    // Khi đã có URL của ảnh, bạn có thể lưu nó vào cơ sở dữ liệu Firebase
+                                    String imageUrl = downloadUrl.toString();
+                                    newCategory(imageUrl, textName);
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });
         dialog.setNegativeButton("Done", null);
-        AlertDialog buiderDialog = dialog.create();
-        buiderDialog.show();
+        AlertDialog builderDialog = dialog.create();
+        builderDialog.show();
     }
-    private void newCategory(String textImage, String textName){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference reference = database.getReference("category").push();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        Category category = new Category(textImage, textName);
-        reference.setValue(category).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(getActivity(), "ADD Success", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getActivity(), "ADD Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        if (requestCode == IMAGE_PICK_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+            // Lấy URI của ảnh đã chọn
+            Uri imageUri = data.getData();
+
+            // Hiển thị ảnh đã chọn lên ImageView
+            chooseImage.setImageURI(imageUri);
+            // Lưu trữ URI của ảnh vào tag của ImageView
+            chooseImage.setTag(imageUri);
+        }
     }
 }

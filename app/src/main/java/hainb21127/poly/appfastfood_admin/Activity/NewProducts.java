@@ -40,7 +40,7 @@ import hainb21127.poly.appfastfood_admin.Adapter.ProdAdapter;
 import hainb21127.poly.appfastfood_admin.DTO.Products;
 import hainb21127.poly.appfastfood_admin.R;
 
-public class Tester extends AppCompatActivity {
+public class NewProducts extends AppCompatActivity {
     Spinner spinner;
     private List<String> listCat = new ArrayList<>();
     private TextInputEditText ed_name_newsp, ed_gia_newsp, ed_mota_newsp, ed_img_newsp;
@@ -104,7 +104,7 @@ public class Tester extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(intPrice + "") || TextUtils.isEmpty(textImage) || TextUtils.isEmpty(textDesr)
                         || TextUtils.isEmpty(textName) || TextUtils.isEmpty(selectedCategory)) {
-                    Toast.makeText(Tester.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewProducts.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
 //                    NEwSanPham(textName, intPrice, textImage, textDesr, selectedCategory);
                     uploadImageToFirebase(selectedImageUri, textName, intPrice, textDesr, selectedCategory);
@@ -144,7 +144,7 @@ public class Tester extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Tester.this, "Lỗi khi tải ảnh lên Firebase Storage: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewProducts.this, "Lỗi khi tải ảnh lên Firebase Storage: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -166,14 +166,14 @@ public class Tester extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(Tester.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NewProducts.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(Tester.this, "Thêm thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NewProducts.this, "Thêm thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(Tester.this, "Thêm thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewProducts.this, "Thêm thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -207,7 +207,7 @@ public class Tester extends AppCompatActivity {
                     categoryToIdMap.put(categoryName, id);
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(Tester.this, R.layout.style_spinner, listCat);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(NewProducts.this, R.layout.style_spinner, listCat);
                 spinner.setAdapter(adapter);
             }
 

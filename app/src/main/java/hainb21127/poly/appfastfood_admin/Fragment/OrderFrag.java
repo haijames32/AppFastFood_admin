@@ -70,26 +70,25 @@ public class OrderFrag extends Fragment {
                             String userId = dataSnapshot2.getKey();
                             KhachHang khachHang = new KhachHang();
                             khachHang.setId(userId);
-                            Log.d("TAG", "onDataChange: "+userId);
+
                             khachHang.setName(dataSnapshot2.child("fullname").getValue(String.class));
-                            Log.d("TAG", "onDataChange: "+ dataSnapshot2.child("fullname"));
+
                             khachHang.setEmail(dataSnapshot2.child("email").getValue(String.class));
-                            Log.d("TAG", "onDataChange: "+ dataSnapshot2.child("email"));
+
                             khachHang.setImage(dataSnapshot2.child("image").getValue(String.class));
-                            Log.d("TAG", "onDataChange: "+ dataSnapshot2.child("image"));
+
                             khachHang.setAddress(dataSnapshot2.child("address").getValue(String.class));
-                            Log.d("TAG", "onDataChange: "+ dataSnapshot2.child("address"));
+
                             khachHang.setPhonenumber(dataSnapshot2.child("phone").getValue(Integer.class));
-                            Log.d("TAG", "onDataChange: "+ dataSnapshot2.child("phone"));
 
                             Order order = new Order();
                             order.setId(dataSnapshot1.getKey());
                             order.setDate(dataSnapshot1.child("date").getValue(String.class));
-                            Log.d("TAG", "onDataChange: "+dataSnapshot1.child("date"));
+
                             order.setStatus(dataSnapshot1.child("trangthai").getValue(String.class));
-                            Log.d("TAG", "onDataChange: "+dataSnapshot1.child("trangthai"));
+
                             order.setTong(dataSnapshot1.child("tongdonhang").getValue(Integer.class));
-                            Log.d("TAG", "onDataChange: "+dataSnapshot1.child("tongdonhang"));
+
                             order.setId_user(khachHang);
                             mOrder.add(order);
                             adapterOrder.setDataOrder(mOrder);
@@ -100,12 +99,12 @@ public class OrderFrag extends Fragment {
                 }
 
                 adapterOrder.notifyDataSetChanged();
-                Toast.makeText(getContext(), "Load data success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Load data success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Load data Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Load data Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

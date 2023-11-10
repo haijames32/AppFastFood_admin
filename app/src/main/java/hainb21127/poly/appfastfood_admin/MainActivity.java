@@ -13,12 +13,23 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import hainb21127.poly.appfastfood_admin.Activity.Signout;
 import hainb21127.poly.appfastfood_admin.Fragment.OrderFrag;
@@ -42,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     FrameLayout frameLayout;
-    BottomNavigationView bottomNavigationView;
-    FragmentManager fragmentManager;
+    TextView name,email;
+    ImageView imageProfile;
 
     private int currentFragment = FRAMENT_HOME;
 
@@ -52,9 +63,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        NavigationView navigationView = findViewById(R.id.navigation);
+        View headerView = navigationView.getHeaderView(0);
+        name = headerView.findViewById(R.id.nameProfile);
+        email = headerView.findViewById(R.id.emailProfile);
+        imageProfile = headerView.findViewById(R.id.imageProfile);
         frameLayout = findViewById(R.id.fragment);
-//        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         drawerLayout = findViewById(R.id.drawer);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        int roles = snapshot.child("level").getValue(Integer.class);
+                        Menu menu = navigationView.getMenu();
+                        MenuItem menuItem = menu.findItem(R.id.nav_user);
+                        MenuItem menuItem1 = menu.findItem(R.id.nav_member);
+                        if (roles != 1){
+                            menuItem.setVisible(false);
+                            menuItem1.setVisible(false);
+                        }else {
+                            menuItem.setVisible(true);
+                            menuItem1.setVisible(true);
+                        }
+                        String nameProfile = snapshot.child("name").getValue(String.class);
+                        String emailProfile = snapshot.child("email").getValue(String.class);
+                        String avater = snapshot.child("image").getValue(String.class);
+
+                        name.setText(nameProfile);
+                        email.setText(emailProfile);
+                        Picasso.get().load(avater).into(imageProfile);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
         toolbar = findViewById(R.id.toolbar);
 
@@ -63,20 +114,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
 
         replaceFragment(new HomeFrag());
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
 
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.icon_menu,menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
     private void replaceFragment(Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -118,12 +161,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("Member");
                 currentFragment = FRAMENT_MEMBER;
             }
-//        }else if (id == R.id.nav_chat){
-//            if (currentFragment!=FRAMENT_CHAT){
-//                replaceFragment(new ChatFrag());
-//                toolbar.setTitle("Box Chat");
-//                currentFragment = FRAMENT_CHAT;
-//            }
         }else if (id == R.id.nav_thongke){
             if (currentFragment!=FRAMENT_TKE){
                 replaceFragment(new ThongKeFrag());
@@ -153,5 +190,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else {
             super.onBackPressed();
         }
+    }
+    private void getDataProfile(){
+
     }
 }

@@ -34,7 +34,7 @@ import hainb21127.poly.appfastfood_admin.R;
 
 public class UpdateNV extends AppCompatActivity {
 
-    TextInputEditText image, name, email, phone,roles;
+    TextInputEditText image, name, email, phone,roles,passwd;
     String userId;
     ImageView avatarsto, btnBack;
     Button btnUpdate;
@@ -51,6 +51,7 @@ public class UpdateNV extends AppCompatActivity {
         phone = findViewById(R.id.phone_update_nv);
         roles = findViewById(R.id.roles_update_nv);
         btnUpdate = findViewById(R.id.btnUpdate_nv);
+        passwd = findViewById(R.id.passwd_edit_update_nv);
         btnBack =findViewById(R.id.btnBack_nv);
 
         listData();
@@ -68,15 +69,16 @@ public class UpdateNV extends AppCompatActivity {
                 int textRoles = Integer.parseInt(roles.getText().toString());
                 String textImg = image.getText().toString();
                 String textEmail = email.getText().toString();
-                UserUpdate(textName,textPhone,textRoles,textImg,textEmail);
+                String textPasswd = passwd.getText().toString();
+                UserUpdate(textName,textPhone,textRoles,textImg,textEmail,textPasswd);
                 onBackPressed();
             }
         });
     }
-    private void UserUpdate(String name,String phone,Integer level, String image, String email){
+    private void UserUpdate(String name,String phone,Integer level, String image, String email,String passwd){
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("managers").child(userId);
-            User user = new User(name, phone,level,image,email);
+            User user = new User(name, phone,level,image,email,passwd);
 
             myRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -107,6 +109,7 @@ public class UpdateNV extends AppCompatActivity {
         email.setText(textEmail);
         phone.setText(phoneNumber);
         roles.setText(lv+"");
+        passwd.setText(textPass);
         Picasso.get().load(avatar).into(avatarsto);
     }
 }

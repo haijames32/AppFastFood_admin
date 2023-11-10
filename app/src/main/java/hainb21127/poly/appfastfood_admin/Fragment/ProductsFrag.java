@@ -13,25 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hainb21127.poly.appfastfood_admin.Activity.ChooseImage;
-import hainb21127.poly.appfastfood_admin.Activity.Tester;
+import hainb21127.poly.appfastfood_admin.Activity.NewProducts;
 import hainb21127.poly.appfastfood_admin.Adapter.CategoryAdapter;
 import hainb21127.poly.appfastfood_admin.Adapter.ProdAdapter;
-import hainb21127.poly.appfastfood_admin.DTO.Category;
 import hainb21127.poly.appfastfood_admin.DTO.Products;
 import hainb21127.poly.appfastfood_admin.R;
 import hainb21127.poly.appfastfood_admin.database.FirebaseDB;
@@ -71,10 +69,11 @@ public class ProductsFrag extends Fragment {
         recyclerView.setLayoutManager(manager);
         getListProducts();
 
+        oninVisible();
         fab_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), Tester.class));
+                startActivity(new Intent(getActivity(), NewProducts.class));
 //                startActivity(new Intent(getActivity(), ChooseImage.class));
             }
         });
@@ -100,6 +99,27 @@ public class ProductsFrag extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(context, "faild", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void oninVisible(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int roles = snapshot.child("level").getValue(Integer.class);
+                if (roles != 1){
+                    fab_sp.setVisibility(View.INVISIBLE);
+                }else {
+                    fab_sp.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

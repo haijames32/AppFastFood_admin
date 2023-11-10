@@ -1,6 +1,7 @@
 package hainb21127.poly.appfastfood_admin.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import hainb21127.poly.appfastfood_admin.Activity.CategoryDetail;
 import hainb21127.poly.appfastfood_admin.DTO.Category;
 import hainb21127.poly.appfastfood_admin.R;
 
@@ -49,6 +51,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
         Picasso.get().load(category.getImageCat()).into(holder.img_lsp);
         holder.tv_name_lsp.setText(category.getNameCat());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CategoryDetail.class);
+                intent.putExtra("id", category.getId());
+                intent.putExtra("nameCat", category.getNameCat());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
