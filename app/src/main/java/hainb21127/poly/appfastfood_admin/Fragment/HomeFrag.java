@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -223,36 +224,56 @@ public class HomeFrag extends Fragment {
         dialog.setPositiveButton("New", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String textName = ed_name.getText().toString();
+                String textName = ed_name.getText().toString().trim();
 
                 if (TextUtils.isEmpty(textName)){
-                    Toast.makeText(getActivity(), "Please enter data", Toast.LENGTH_SHORT).show();
                     ed_name.setError("Name is required");
-                } else if (chooseImage.getDrawable() == null) {
-                    Toast.makeText(getActivity(), "Please choose an image", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Lấy URI của ảnh đã chọn
-                    Uri imageUri = (Uri) chooseImage.getTag();
-                    // Tạo một StorageReference để đại diện cho đường dẫn nơi ảnh sẽ được lưu trữ
-                    StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + imageUri.getLastPathSegment());
-                    // Tải lên ảnh lên Firebase Storage
-                    storageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Lấy URL của ảnh đã tải lên
-                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri downloadUrl) {
-                                    // Khi đã có URL của ảnh, bạn có thể lưu nó vào cơ sở dữ liệu Firebase
-                                    String imageUrl = downloadUrl.toString();
-                                    newCategory(imageUrl, textName);
-                                }
-                            });
-                        }
-                    });
+                    return;
                 }
+
+                if (chooseImage.getDrawable() == null) {
+                    Toast.makeText(getActivity(), "Please choose an image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Lấy URI của ảnh đã chọn
+                Uri imageUri = (Uri) chooseImage.getTag();
+                if (imageUri == null) {
+                    Toast.makeText(getActivity(), "Failed to get image URI", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Tạo một StorageReference để đại diện cho đường dẫn nơi ảnh sẽ được lưu trữ
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + imageUri.getLastPathSegment());
+
+                // Tải lên ảnh lên Firebase Storage
+                storageRef.putFile(imageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Lấy URL của ảnh đã tải lên
+                                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri downloadUrl) {
+                                        String imageUrl = downloadUrl.toString();
+                                        newCategory(imageUrl, textName);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getContext(), "Failed to get image URL", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
+
         dialog.setNegativeButton("Done", null);
         AlertDialog builderDialog = dialog.create();
         builderDialog.show();

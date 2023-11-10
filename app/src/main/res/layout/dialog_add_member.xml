@@ -14,6 +14,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
                <ImageView
+                   android:id="@+id/avatar_newNV_dialog"
                    android:layout_marginBottom="20dp"
                    android:gravity="center"
                    android:layout_gravity="center"
@@ -22,22 +23,22 @@
                    android:src="@drawable/avatar_user_male"
                    android:layout_margin="5dp"
                    android:text="Thêm quản lý"/>
-               <com.google.android.material.textfield.TextInputLayout
-                   android:layout_margin="10dp"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   app:boxCornerRadiusBottomEnd="17dp"
-                   app:boxCornerRadiusBottomStart="17dp"
-                   app:boxCornerRadiusTopEnd="17dp"
-                   app:boxCornerRadiusTopStart="17dp">
-                   <com.google.android.material.textfield.TextInputEditText
-                       android:id="@+id/ed_img_member_dialog"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:drawableLeft="@drawable/image_24"
-                       android:drawablePadding="8dp"
-                       android:hint="Ảnh" />
-               </com.google.android.material.textfield.TextInputLayout>
+<!--               <com.google.android.material.textfield.TextInputLayout-->
+<!--                   android:layout_margin="10dp"-->
+<!--                   android:layout_width="match_parent"-->
+<!--                   android:layout_height="wrap_content"-->
+<!--                   app:boxCornerRadiusBottomEnd="17dp"-->
+<!--                   app:boxCornerRadiusBottomStart="17dp"-->
+<!--                   app:boxCornerRadiusTopEnd="17dp"-->
+<!--                   app:boxCornerRadiusTopStart="17dp">-->
+<!--                   <com.google.android.material.textfield.TextInputEditText-->
+<!--                       android:id="@+id/ed_img_member_dialog"-->
+<!--                       android:layout_width="match_parent"-->
+<!--                       android:layout_height="wrap_content"-->
+<!--                       android:drawableLeft="@drawable/image_24"-->
+<!--                       android:drawablePadding="8dp"-->
+<!--                       android:hint="Ảnh" />-->
+<!--               </com.google.android.material.textfield.TextInputLayout>-->
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_margin="10dp"
                    android:layout_width="match_parent"
