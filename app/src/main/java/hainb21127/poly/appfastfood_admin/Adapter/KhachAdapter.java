@@ -68,7 +68,6 @@ public class KhachAdapter extends RecyclerView.Adapter<KhachAdapter.KhachViewHol
             tv_address = itemView.findViewById(R.id.tv_address_kh);
             tv_email = itemView.findViewById(R.id.tv_email_address_kh);
             tv_phone = itemView.findViewById(R.id.tv_phone_kh);
-            ed_info_kh = itemView.findViewById(R.id.ed_info_kh);
         }
     }
 }

@@ -13,13 +13,22 @@ public class User {
     public User() {
     }
 
-    public User(String name, String phone, int level, String image, String email) {
+    public User(String name, String phone, int level, String image, String email,String passwd) {
         this.name = name;
         this.phone = phone;
         this.level = level;
         this.image = image;
         this.email = email;
+        this.passwd = passwd;
     }
+
+//    public User( String name, String phone, int level, String image,String email) {
+//        this.email = email;
+//        this.name = name;
+//        this.phone = phone;
+//        this.level = level;
+//        this.image = image;
+//    }
 
     public String getId() {
         return id;

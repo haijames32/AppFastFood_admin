@@ -19,7 +19,7 @@
     <item
         android:id="@+id/nav_member"
         android:icon="@drawable/people_24"
-        android:title="Quản lý Khách hàng" />
+        android:title="Danh sách Khách hàng" />
 <!--    <item-->
 <!--        android:id="@+id/nav_chat"-->
 <!--        android:icon="@drawable/message_v24"-->
@@ -34,7 +34,7 @@
             <item
                 android:id="@+id/nav_gthieu"
                 android:icon="@drawable/person_24"
-                android:title="Đổi mât khẩu" />
+                android:title="Đổi mật khẩu" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout_24"

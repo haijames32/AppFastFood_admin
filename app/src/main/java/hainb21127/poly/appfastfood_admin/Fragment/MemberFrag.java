@@ -210,7 +210,7 @@ public class MemberFrag extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     int roles = 2;
-                    User user = new User(textName, textPhone, roles, textImage, textEmail);
+                    User user = new User(textName, textPhone, roles, textImage, textEmail,textPasswd);
                     String uid = task.getResult().getUser().getUid();
                     DatabaseReference reference = database.getReference("managers").child(uid);
                     reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

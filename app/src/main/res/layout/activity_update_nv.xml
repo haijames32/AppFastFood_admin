@@ -146,6 +146,25 @@
                 android:hint="Cấp độ quản trị"
                 android:text="2" />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:boxCornerRadiusBottomEnd="17dp"
+            app:boxCornerRadiusBottomStart="17dp"
+            app:boxCornerRadiusTopEnd="17dp"
+            app:boxCornerRadiusTopStart="17dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwd_edit_update_nv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:drawableLeft="@drawable/lock"
+                android:drawablePadding="8dp"
+                android:enabled="false"
+                android:hint="Password" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
 
