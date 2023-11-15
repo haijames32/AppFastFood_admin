@@ -23,7 +23,6 @@ import hainb21127.poly.appfastfood_admin.R;
 
 public class Login extends AppCompatActivity {
 
-    TextView create_account;
     Button btn_login;
 
     TextInputEditText ed_email_login,ed_pw_login;

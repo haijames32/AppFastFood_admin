@@ -19,6 +19,12 @@
         android:theme="@style/Theme.AppFastFood_admin"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.Messages"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.NewStaff"
+            android:exported="false" />
+        <activity
             android:name=".Activity.CategoryDetail"
             android:exported="false" />
         <activity

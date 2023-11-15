@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/line_item"
+    android:layout_marginTop="10dp"
     android:background="@drawable/item_radius"
-    android:layout_margin="8dp"
+    android:layout_marginHorizontal="4dp"
     android:orientation="vertical">
 
     <!-- tien, status, image, namekh, date, text Xacs nhan-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal">
         <androidx.cardview.widget.CardView
             android:layout_margin="10dp"
@@ -19,9 +20,9 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="100dp">
             <ImageView
-                android:id="@+id/imgOrder"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:id="@+id/imgTke"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/profile"/>
         </androidx.cardview.widget.CardView>
         <LinearLayout
@@ -31,38 +32,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:gravity="end"
-                    android:id="@+id/orderStatus"
+                    android:id="@+id/TkeStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Chờ xác nhận"
                     android:textSize="20sp"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/orDate"
+                    android:id="@+id/TkeDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
                     android:text="20-10-2023"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="3dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/orderName"
+                    android:id="@+id/TkeName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nguyễn Văn B"
@@ -85,21 +86,16 @@
             android:textSize="20sp"
             android:textStyle="bold"/>
         <TextView
-            android:layout_width="130dp"
+            android:gravity="right"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="120.156.000đ"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:layout_marginRight="10dp"
             android:textColor="@color/colorAccent"
-            android:id="@+id/orderPrice"/>
-        <Button
-            android:id="@+id/btnComfirm"
-            android:gravity="center"
-            android:backgroundTint="#259EFF"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Xác nhận"/>
+            android:id="@+id/TkeTotal"/>
+
     </LinearLayout>
 
 </LinearLayout>

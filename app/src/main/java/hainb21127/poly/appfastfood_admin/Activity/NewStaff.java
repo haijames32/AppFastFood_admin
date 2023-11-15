@@ -1,24 +1,18 @@
-package hainb21127.poly.appfastfood_admin.Fragment;
+package hainb21127.poly.appfastfood_admin.Activity;
 
-import android.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -27,110 +21,39 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import hainb21127.poly.appfastfood_admin.Activity.NewStaff;
-import hainb21127.poly.appfastfood_admin.Adapter.UserAdapter;
 import hainb21127.poly.appfastfood_admin.DTO.User;
 import hainb21127.poly.appfastfood_admin.R;
-import hainb21127.poly.appfastfood_admin.database.FirebaseDB;
 
-
-public class MemberFrag extends Fragment {
-
-    FloatingActionButton btn_add;
-
-    UserAdapter adapter;
-
+public class NewStaff extends AppCompatActivity {
+    TextInputEditText ed_name, ed_email, ed_phone, ed_level, ed_passwd, ed_confirmpw;
+    Button btn_add_member;
     Context context;
-    List<User> mUser;
-    RecyclerView rcView;
     private static final int IMAGE_PICK_CODE = 1001;
-    ImageView chooseImage;
-
+    ImageView chooseImage, btnPrevStaff;
+    @SuppressLint("MissingInflatedId")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_member, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        btn_add = view.findViewById(R.id.fab_user);
-        rcView = view.findViewById(R.id.rcv_user);
-        mUser = new ArrayList<>();
-        adapter = new UserAdapter(getContext(),mUser);
-        LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        rcView.setLayoutManager(manager);
-        getListUser();
-
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                addMember();
-                startActivity(new Intent(getActivity(), NewStaff.class));
-            }
-        });
-    }
-
-    private void getListUser() {
-        FirebaseDatabase database = FirebaseDB.getDatabaseInstance();
-        DatabaseReference myRef = database.getReference("managers");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mUser.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    User user = dataSnapshot.getValue(User.class);
-                    user.setId(dataSnapshot.getKey());
-                    mUser.add(user);
-                    adapter.setDataUser(mUser);
-                    rcView.setAdapter(adapter);
-                }
-
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void addMember() {
-        TextInputEditText ed_name, ed_email, ed_phone,
-                ed_level, ed_passwd, ed_confirmpw;
-        Button btn_add_member;
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_member, null);
-
-        btn_add_member = view.findViewById(R.id.btn_add_dialog_member);
-        ed_name = view.findViewById(R.id.ed_name_dialog_member);
-        ed_email = view.findViewById(R.id.ed_email_dialog_member);
-        ed_phone = view.findViewById(R.id.ed_phone_dialog_member);
-        ed_level = view.findViewById(R.id.ed_roles_dialog_member);
-        chooseImage = view.findViewById(R.id.avatar_newNV_dialog);
-        ed_passwd = view.findViewById(R.id.ed_passwd_dialog_member);
-        ed_confirmpw = view.findViewById(R.id.ed_checkpw_dialog_member);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_staff);
+        btn_add_member = findViewById(R.id.btn_add_member);
+        ed_name = findViewById(R.id.ed_name_member);
+        ed_email = findViewById(R.id.ed_email_member);
+        ed_phone = findViewById(R.id.ed_phone_member);
+        ed_level = findViewById(R.id.ed_roles_member);
+        chooseImage = findViewById(R.id.avatar_newNV);
+        ed_passwd = findViewById(R.id.ed_passwd_member);
+        ed_confirmpw = findViewById(R.id.ed_checkpw_member);
+        btnPrevStaff =findViewById(R.id.btnStaff);
 
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,10 +63,12 @@ public class MemberFrag extends Fragment {
                 startActivityForResult(intent, IMAGE_PICK_CODE);
             }
         });
-
-        builder.setView(view);
-        builder.setTitle("New User");
-
+        btnPrevStaff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         btn_add_member.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,7 +82,7 @@ public class MemberFrag extends Fragment {
                 String phoneNumberPattern = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
 
                 if (chooseImage.getDrawable() == null) {
-                    Toast.makeText(getContext(), "Please choose an image for the member.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please choose an image for the member.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -224,7 +149,7 @@ public class MemberFrag extends Fragment {
                 // Lấy URI của ảnh đã chọn
                 Uri imageUri = (Uri) chooseImage.getTag();
                 if (imageUri == null) {
-                    Toast.makeText(getContext(), "Failed to get image URI", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Failed to get image URI", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -245,7 +170,7 @@ public class MemberFrag extends Fragment {
                                     @Override
                                     public void onSuccess(Uri downloadUrl) {
                                         String imageURL = downloadUrl.toString();
-                                        registerUser(imageURL, textName, textEmail, textPhone,textLevel, textPasswd);
+                                        newStaff(imageURL, textName, textEmail, textPhone,textLevel, textPasswd);
                                         ed_name.setText("");
                                         ed_email.setText("");
                                         ed_phone.setText("");
@@ -255,61 +180,53 @@ public class MemberFrag extends Fragment {
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getContext(), "Failed to get image URL", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Failed to get image URL", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         });
-
-        builder.setNegativeButton("Done", null);
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
-
-    private void registerUser(String textImage, String textName, String textEmail, String textPhone, Integer textLevel, String textPasswd) {
+    private void newStaff(String textImage, String textName, String textEmail, String textPhone, Integer textLevel, String textPasswd){
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        auth.createUserWithEmailAndPassword(textEmail, textPasswd).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(textEmail,textPasswd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseUser userfb = auth.getCurrentUser();
-                    User user = new User(textName, textPhone, textLevel, textImage, textEmail,textPasswd);
-                    String uid = userfb.getUid();
-                    DatabaseReference reference = database.getReference("managers").child(uid);
-                    reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.i("user", "complete: " + task.toString());
-                                Toast.makeText(getActivity(), "Thêm thành công" + task.toString(), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getActivity(), "Thêm thất bại" + task.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(getActivity(), "New member Failed "+task.toString(), Toast.LENGTH_SHORT).show();
-                }
+                if (task.isSuccessful()){
+                    String msg = task.getResult().getUser().getUid();
+                        User user = new User(textName, textPhone, textLevel, textImage, textEmail, textPasswd);
+                        DatabaseReference reference = database.getReference("managers").child(msg);
+                        reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.i("user", "complete: " + user);
+                                    Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Thêm thất bại" , Toast.LENGTH_SHORT).show();
 
+                                }
+                            }
+                        });
+                }else {
+                    Toast.makeText(getApplicationContext(), "New member Failed " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == IMAGE_PICK_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+        if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null) {
             // Lấy URI của ảnh đã chọn
             Uri imageUri = data.getData();
 
@@ -319,5 +236,4 @@ public class MemberFrag extends Fragment {
             chooseImage.setTag(imageUri);
         }
     }
-
 }

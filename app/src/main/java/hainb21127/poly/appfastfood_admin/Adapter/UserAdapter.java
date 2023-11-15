@@ -33,12 +33,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     private Context context;
 
-    public UserAdapter(Context context) {
+    public UserAdapter(Context context,List<User> mListUser) {
         this.context = context;
-    }
-
-    public UserAdapter(List<User> mListUser) {
         this.mListUser = mListUser;
+
     }
 
     public void setDataUser(List<User> arrayUser){
@@ -65,10 +63,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tv_roles.setText(user.getLevel()+"");
         Picasso.get().load(user.getImage()).into(holder.img_member);
 
-//        if (holder.tv_roles.getText().toString().equals("1")){
-//            holder.deleteMember.setVisibility(View.VISIBLE);
-//            holder.editMember.setVisibility(View.VISIBLE);
-//        }
         holder.deleteMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
