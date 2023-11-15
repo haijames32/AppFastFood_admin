@@ -8,6 +8,10 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import hainb21127.poly.appfastfood_admin.MainActivity;
 import hainb21127.poly.appfastfood_admin.R;
 
 public class Splash extends AppCompatActivity {
@@ -24,6 +28,12 @@ public class Splash extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(intent);
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+////                if (user != null){
+////                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+////                }else {
+////                    startActivity(intent);
+////                }
             }
         });
     }

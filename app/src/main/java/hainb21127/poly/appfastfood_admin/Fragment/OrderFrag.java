@@ -71,7 +71,7 @@ public class OrderFrag extends Fragment {
                             KhachHang khachHang = new KhachHang();
                             khachHang.setId(userId);
 
-                            khachHang.setName(dataSnapshot2.child("fullname").getValue(String.class));
+                            khachHang.setFullname(dataSnapshot2.child("fullname").getValue(String.class));
 
                             khachHang.setEmail(dataSnapshot2.child("email").getValue(String.class));
 
@@ -99,12 +99,12 @@ public class OrderFrag extends Fragment {
                 }
 
                 adapterOrder.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "Load data success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Load data thành công", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Load data Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Load data thất bại", Toast.LENGTH_SHORT).show();
             }
         });
     }

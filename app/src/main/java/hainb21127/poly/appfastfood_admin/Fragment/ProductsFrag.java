@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +50,7 @@ public class ProductsFrag extends Fragment {
     Products products;
 
     private String prodId;
+    CardView cardView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +63,7 @@ public class ProductsFrag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fab_sp = view.findViewById(R.id.fab_sp);
+        cardView = view.findViewById(R.id.cardView);
         recyclerView = view.findViewById(R.id.rcv_product_fragment);
         mProduct = new ArrayList<>();
         adapter1 = new ProdAdapter(context);
@@ -111,9 +114,11 @@ public class ProductsFrag extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int roles = snapshot.child("level").getValue(Integer.class);
                 if (roles != 1){
+                    cardView.setVisibility(View.INVISIBLE);
                     fab_sp.setVisibility(View.INVISIBLE);
                 }else {
                     fab_sp.setVisibility(View.VISIBLE);
+                    cardView.setVisibility(View.VISIBLE);
                 }
             }
 

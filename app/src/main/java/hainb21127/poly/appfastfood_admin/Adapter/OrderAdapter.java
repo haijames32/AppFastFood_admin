@@ -26,6 +26,7 @@ import java.util.List;
 import hainb21127.poly.appfastfood_admin.Activity.OrderDetail;
 import hainb21127.poly.appfastfood_admin.DTO.Order;
 import hainb21127.poly.appfastfood_admin.R;
+import hainb21127.poly.appfastfood_admin.config.Utilities;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
 
@@ -57,12 +58,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             return;
         }
         holder.date.setText(order.getDate());
-        holder.name.setText(order.getId_user().getName());
-        holder.total.setText(order.getTong()+"");
+        holder.name.setText(order.getId_user().getFullname());
+        holder.total.setText(Utilities.addDots(order.getTong())+"đ");
         holder.status.setText(order.getStatus());
         Picasso.get().load(order.getId_user().getImage()).into(holder.imageView);
 
-        if (holder.status.getText().toString().equalsIgnoreCase("Chờ xác nhận")){
+        if (holder.status.getText().toString().equalsIgnoreCase("Chờ xác nhận")
+                || holder.status.getText().toString().equalsIgnoreCase("Đã thanh toán và chờ xác nhận")){
             holder.btnComfirm.setVisibility(View.VISIBLE);
         }
         holder.btnComfirm.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +93,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), OrderDetail.class);
                 intent.putExtra("idOrder",order.getId());
-                intent.putExtra("nameUser",order.getId_user().getName());
+                intent.putExtra("nameUser",order.getId_user().getFullname());
                 intent.putExtra("emailUser",order.getId_user().getEmail());
                 intent.putExtra("addressUser",order.getId_user().getAddress());
                 intent.putExtra("phoneUser",order.getId_user().getPhonenumber());
+                intent.putExtra("Status",order.getStatus());
+                intent.putExtra("tongHoaDon",order.getTong());
                 view.getContext().startActivity(intent);
             }
         });

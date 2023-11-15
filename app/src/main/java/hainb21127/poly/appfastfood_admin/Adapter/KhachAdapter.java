@@ -45,7 +45,7 @@ public class KhachAdapter extends RecyclerView.Adapter<KhachAdapter.KhachViewHol
         if (kh == null){
             return;
         }
-        holder.tv_name.setText(kh.getName());
+        holder.tv_name.setText(kh.getFullname());
         holder.tv_address.setText(kh.getAddress());
         holder.tv_email.setText(kh.getEmail());
         holder.tv_phone.setText("+84 "+kh.getPhonenumber()+"");

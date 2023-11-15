@@ -67,7 +67,7 @@ public class UserFrag extends Fragment {
                 mKhang.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     KhachHang khachHang = new KhachHang();
-                    khachHang.setName(dataSnapshot.child("fullname").getValue(String.class));
+                    khachHang.setFullname(dataSnapshot.child("fullname").getValue(String.class));
                     khachHang.setAddress(dataSnapshot.child("address").getValue(String.class));
                     khachHang.setPhonenumber(dataSnapshot.child("phone").getValue(Integer.class));
                     khachHang.setEmail(dataSnapshot.child("email").getValue(String.class));

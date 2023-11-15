@@ -31,10 +31,17 @@
     <TextView
         android:id="@+id/emailProfile"
         android:layout_marginTop="5dp"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="quangnvph25876@fpt.edu.vn"
-        android:textSize="20dp"
+        android:textSize="18dp"
         />
+    <TextView
+        android:layout_marginTop="7dp"
+        android:id="@+id/Idroles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:text="Nhân viên"/>
 
 </LinearLayout>

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +98,9 @@ public class HomeFrag extends Fragment {
         rcv_category.setLayoutManager(linearManager);
         getListCategory();
 
-        oninVisible();
+//        oninVisible();
+
+        onInvisible();
 
         floating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,19 +184,26 @@ public class HomeFrag extends Fragment {
             }
         });
     }
-    private void oninVisible(){
+    private void oninVisible1() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int roles = snapshot.child("level").getValue(Integer.class);
-                if (roles != 1){
-                    tv_add.setVisibility(View.INVISIBLE);
-                }else {
-                    tv_add.setVisibility(View.VISIBLE);
+                Integer rolesInt = snapshot.child("level").getValue(Integer.class);
+                if (rolesInt != null) {
+                    // Nếu giá trị không phải là null, kiểm tra giá trị roles
+                    int roles = rolesInt.intValue();
+                    if (roles != 1) {
+                        tv_add.setVisibility(View.INVISIBLE);
+                    } else {
+                        tv_add.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Value null", Toast.LENGTH_LONG).show();
                 }
+
             }
 
             @Override
@@ -201,6 +212,46 @@ public class HomeFrag extends Fragment {
             }
         });
     }
+    private void onInvisible() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
+        if (currentUser != null) {
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    Integer rolesInt = snapshot.child("level").getValue(Integer.class);
+                    if (rolesInt != null) {
+
+                        if (rolesInt != 1) {
+                            tv_add.setVisibility(View.INVISIBLE);
+                        } else {
+                            tv_add.setVisibility(View.VISIBLE);
+                        }
+//                        name.setText(nameProfile);
+//                        email.setText(emailProfile);
+//                        Picasso.get().load(avater).into(imageProfile);
+                    } else {
+                        // Giá trị là null, hiển thị Toast hoặc xử lý theo ý bạn
+                        Log.d("TAG", "onDataChange: ");
+                    }
+                    Log.d("TAGA", "onDataChange: " + rolesInt);
+                    Log.d("TAGA", "onDataChange: " +userId);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Xử lý lỗi nếu cần
+                }
+            });
+        } else {
+            // Xử lý trường hợp currentUser là null
+            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     private void addCategory() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
@@ -244,15 +295,19 @@ public class HomeFrag extends Fragment {
                 }
 
                 // Tạo một StorageReference để đại diện cho đường dẫn nơi ảnh sẽ được lưu trữ
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + imageUri.getLastPathSegment());
+//                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + imageUri.getLastPathSegment());
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
+                String imageName = System.currentTimeMillis() + ".jpg";
+                StorageReference imageRef = storageRef.child("images/" + imageName);
 
                 // Tải lên ảnh lên Firebase Storage
-                storageRef.putFile(imageUri)
+                imageRef.putFile(imageUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Lấy URL của ảnh đã tải lên
-                                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri downloadUrl) {
                                         String imageUrl = downloadUrl.toString();

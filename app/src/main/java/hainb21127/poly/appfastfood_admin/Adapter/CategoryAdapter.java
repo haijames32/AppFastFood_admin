@@ -1,5 +1,6 @@
 package hainb21127.poly.appfastfood_admin.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -52,6 +55,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         Picasso.get().load(category.getImageCat()).into(holder.img_lsp);
         holder.tv_name_lsp.setText(category.getNameCat());
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                return false;
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

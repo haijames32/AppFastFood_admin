@@ -13,12 +13,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import hainb21127.poly.appfastfood_admin.Activity.Login;
 import hainb21127.poly.appfastfood_admin.Activity.Signout;
 import hainb21127.poly.appfastfood_admin.Fragment.OrderFrag;
 import hainb21127.poly.appfastfood_admin.Fragment.HomeFrag;
@@ -53,8 +56,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     FrameLayout frameLayout;
-    TextView name,email;
+    TextView name,email,Idroles;
     ImageView imageProfile;
+    NavigationView navigationView;
 
     private int currentFragment = FRAMENT_HOME;
 
@@ -63,49 +67,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        NavigationView navigationView = findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         View headerView = navigationView.getHeaderView(0);
         name = headerView.findViewById(R.id.nameProfile);
         email = headerView.findViewById(R.id.emailProfile);
+        Idroles = headerView.findViewById(R.id.Idroles);
         imageProfile = headerView.findViewById(R.id.imageProfile);
         frameLayout = findViewById(R.id.fragment);
         drawerLayout = findViewById(R.id.drawer);
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
-            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        int roles = snapshot.child("level").getValue(Integer.class);
-                        Menu menu = navigationView.getMenu();
-                        MenuItem menuItem = menu.findItem(R.id.nav_user);
-                        MenuItem menuItem1 = menu.findItem(R.id.nav_member);
-                        if (roles != 1){
-                            menuItem.setVisible(false);
-                            menuItem1.setVisible(false);
-                        }else {
-                            menuItem.setVisible(true);
-                            menuItem1.setVisible(true);
-                        }
-                        String nameProfile = snapshot.child("name").getValue(String.class);
-                        String emailProfile = snapshot.child("email").getValue(String.class);
-                        String avater = snapshot.child("image").getValue(String.class);
-
-                        name.setText(nameProfile);
-                        email.setText(emailProfile);
-                        Picasso.get().load(avater).into(imageProfile);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
 
         toolbar = findViewById(R.id.toolbar);
 
@@ -118,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         replaceFragment(new HomeFrag());
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-
+        getDataProfile();
     }
 
     private void replaceFragment(Fragment fragment){
@@ -177,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if (id == R.id.nav_logout){
             FirebaseAuth auth = FirebaseAuth.getInstance();
             auth.signOut();
-            startActivity(new Intent(getApplication(), Signout.class));
+            startActivity(new Intent(getApplication(), Login.class));
             finish();
         }
         return true;
@@ -192,6 +161,102 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
     private void getDataProfile(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int roles = snapshot.child("level").getValue(Integer.class);
+                        Menu menu = navigationView.getMenu();
+                        MenuItem menuItem = menu.findItem(R.id.nav_user);
+                        MenuItem menuItem1 = menu.findItem(R.id.nav_member);
+                        if (roles != 1){
+                            menuItem.setVisible(false);
+                            menuItem1.setVisible(false);
+                        }else {
+                            menuItem.setVisible(true);
+                            menuItem1.setVisible(true);
+                        }
+                        String nameProfile = snapshot.child("name").getValue(String.class);
+                        String emailProfile = snapshot.child("email").getValue(String.class);
+                        String avater = snapshot.child("image").getValue(String.class);
 
+                        name.setText(nameProfile);
+                        email.setText(emailProfile);
+                        Picasso.get().load(avater).into(imageProfile);
+                        if (roles != 1){
+                            Idroles.setText("Nhân viên");
+                        }else {
+                            Idroles.setText("Quản Lý");
+                        }
+                        Log.d("TAGD", "onDataChange: "+ roles);
+                    Log.d("TAG", "onDataChange: "+ userId);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
+    private void getDataProfile1() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference managersRef = FirebaseDatabase.getInstance().getReference("managers");
+
+            // Thêm sự kiện lắng nghe tại đường dẫn "managers"
+            managersRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        // Kiểm tra xem user có tồn tại trong danh sách managers hay không
+                        if (snapshot.hasChild(userId)) {
+                            DataSnapshot userSnapshot = snapshot.child(userId);
+                            int roles = userSnapshot.child("level").getValue(Integer.class);
+
+                            // ... Các dòng code xử lý dữ liệu khác
+                            Menu menu = navigationView.getMenu();
+                            MenuItem menuItem = menu.findItem(R.id.nav_user);
+                            MenuItem menuItem1 = menu.findItem(R.id.nav_member);
+                            if (roles != 1){
+                                menuItem.setVisible(false);
+                                menuItem1.setVisible(false);
+                            }else {
+                                menuItem.setVisible(true);
+                                menuItem1.setVisible(true);
+                            }
+                            String nameProfile = userSnapshot.child("name").getValue(String.class);
+                            String emailProfile = userSnapshot.child("email").getValue(String.class);
+                            String avater = userSnapshot.child("image").getValue(String.class);
+
+                            name.setText(nameProfile);
+                            email.setText(emailProfile);
+                            Picasso.get().load(avater).into(imageProfile);
+                            if (roles != 1){
+                                Idroles.setText("Nhân viên");
+                            }else {
+                                Idroles.setText("Admin");
+                            }
+
+                            Log.d("TAGD", "onDataChange: " + roles);
+                        } else {
+                            Log.d("TAGD", "User not found in managers");
+                        }
+                    }
+                    Log.d("TAG", "onDataChange: " + userId);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Xử lý lỗi
+                }
+            });
+        }
+    }
+
 }

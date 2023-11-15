@@ -2,7 +2,7 @@ package hainb21127.poly.appfastfood_admin.DTO;
 
 public class KhachHang {
     String id;
-    String name;
+    String fullname;
     String address;
     String email;
     String image;
@@ -19,12 +19,12 @@ public class KhachHang {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getAddress() {
