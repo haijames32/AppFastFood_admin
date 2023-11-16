@@ -1,6 +1,7 @@
 package hainb21127.poly.appfastfood_admin.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,9 @@ public class MessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Log.d("MessAdapter", "getItemViewType: " + getItemViewType(position));
+        Log.d("MessAdapter", "sendId: " + sendid);
+        Log.d("MessAdapter", "message sendId: " + messageChatList.get(position).sendId);
         if (getItemViewType(position)==TYPE_SEND){
             ((MessViewHolder) holder).txtmess.setText(messageChatList.get(position).content);
             ((MessViewHolder) holder).txttime.setText(messageChatList.get(position).time);
@@ -59,11 +63,19 @@ public class MessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (sendid != null && sendid.equals(messageChatList.get(position).sendId)) {
-            return TYPE_SEND;
-        } else {
-            return TYPE_RECEIVE;
-        }
+        Log.d("MessAdapter1", "sendId: " + sendid);
+        Log.d("MessAdapter2", "message sendId: " + messageChatList.get(position).sendId);
+            if (messageChatList.get(position).sendId != null && messageChatList.get(position).sendId.equals(sendid)) {
+                return TYPE_SEND;
+            } else {
+                return TYPE_RECEIVE;
+            }
+
+//        if (sendid != null && sendid.equals(messageChatList.get(position).sendId)) {
+//            return TYPE_SEND;
+//        } else {
+//            return TYPE_RECEIVE;
+//        }
 //
     }
 
