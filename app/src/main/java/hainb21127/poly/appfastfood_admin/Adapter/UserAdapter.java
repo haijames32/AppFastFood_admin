@@ -63,9 +63,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tv_roles.setText(user.getLevel()+"");
         Picasso.get().load(user.getImage()).into(holder.img_member);
 
+        //
         holder.deleteMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("Thông báo");
                 builder.setMessage("Bạn có chắc chắn muốn xóa người này không?");
