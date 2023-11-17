@@ -82,6 +82,7 @@ public class ProdAdapter extends RecyclerView.Adapter<ProdAdapter.ProdViewHolder
                 view.getContext().startActivity(intent);
             }
         });
+
     }
 
     @Override
