@@ -46,7 +46,7 @@ public class ProductsDetail extends AppCompatActivity {
         tvMota = findViewById(R.id.ed_mota_detailsp);
         imgSp = findViewById(R.id.img_detailsp);
         btnBack = findViewById(R.id.btn_back_sp_detail);
-
+        // aa
         Intent intent = getIntent();
         String id = intent.getStringExtra("idPro");
         String name = intent.getStringExtra("namePro");
