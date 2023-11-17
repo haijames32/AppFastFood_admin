@@ -77,6 +77,7 @@ public class UpdateProduct extends AppCompatActivity {
         String mota = intent.getStringExtra("motaProUd");
         String img = intent.getStringExtra("imagePorUd");
 
+        // show
         showSpinner();
 
         nameSp.setText(name);
