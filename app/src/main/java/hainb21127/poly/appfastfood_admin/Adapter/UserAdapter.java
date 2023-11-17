@@ -63,6 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tv_roles.setText(user.getLevel()+"");
         Picasso.get().load(user.getImage()).into(holder.img_member);
 
+        //
         holder.deleteMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
