@@ -66,6 +66,7 @@ public class ProdAdapter extends RecyclerView.Adapter<ProdAdapter.ProdViewHolder
                 intent.putExtra("imagePorUd",prd.getImage());
                 intent.putExtra("motaProUd",prd.getMota());
                 view.getContext().startActivity(intent);
+
                 return false;
             }
         });
