@@ -51,6 +51,7 @@ public class ProdAdapter extends RecyclerView.Adapter<ProdAdapter.ProdViewHolder
             return;
         }
         holder.tv_name_prd.setText(prd.getTensp());
+
         holder.tv_price_prd.setText(Utilities.addDots(prd.getGiasp())+" VND" );
         Picasso.get().load(prd.getImage()).into(holder.img_prod);
 
