@@ -41,6 +41,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
     public void setDataOrder(List<Order> arrOrder){
         this.mOrder = arrOrder;
+//        this.context = context;
         notifyDataSetChanged();
     }
 

@@ -44,7 +44,7 @@ public class OrderItemDetailAdapter extends RecyclerView.Adapter<OrderItemDetail
         Picasso.get().load(detail.getId_products().getImage()).into(holder.imageSp);
         holder.nameSp.setText(detail.getId_products().getTensp());
         holder.soLuongSp.setText(detail.getSoluong()+"");
-        holder.giaSap.setText(Utilities.addDots(detail.getId_products().getGiasp())+"đ");
+        holder.giaSp.setText(Utilities.addDots(detail.getId_products().getGiasp())+"đ");
         holder.tongTienSp.setText(Utilities.addDots(detail.getTongTien())+"đ");
     }
 
@@ -58,13 +58,13 @@ public class OrderItemDetailAdapter extends RecyclerView.Adapter<OrderItemDetail
     }
 
     public class OrderDetailViewHolder extends RecyclerView.ViewHolder {
-        TextView nameSp, giaSap,soLuongSp,tongTienSp;
+        TextView nameSp, giaSp,soLuongSp,tongTienSp;
         ImageView imageSp;
         public OrderDetailViewHolder(@NonNull View itemView) {
             super(itemView);
             nameSp = itemView.findViewById(R.id.nameOrder);
             soLuongSp = itemView.findViewById(R.id.soLuogOrder);
-            giaSap = itemView.findViewById(R.id.priceOrderSp);
+            giaSp = itemView.findViewById(R.id.priceOrderSp);
             tongTienSp = itemView.findViewById(R.id.tongTienSp);
             imageSp = itemView.findViewById(R.id.imgProduct_order);
         }
