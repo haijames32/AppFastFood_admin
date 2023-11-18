@@ -122,7 +122,6 @@ public class MemberFrag extends Fragment {
         if (requestCode == IMAGE_PICK_CODE && resultCode == getActivity().RESULT_OK && data != null) {
             // Lấy URI của ảnh đã chọn
             Uri imageUri = data.getData();
-
             // Hiển thị ảnh đã chọn lên ImageView
             chooseImage.setImageURI(imageUri);
             // Lưu trữ URI của ảnh vào tag của ImageView

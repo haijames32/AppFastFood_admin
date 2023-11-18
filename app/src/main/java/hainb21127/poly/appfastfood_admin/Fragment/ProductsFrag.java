@@ -97,6 +97,7 @@ public class ProductsFrag extends Fragment {
                     recyclerView.setAdapter(adapter1);
                 }
                 adapter1.notifyDataSetChanged();
+//                getContext();
             }
 
             @Override
@@ -105,6 +106,7 @@ public class ProductsFrag extends Fragment {
             }
         });
     }
+    //
     private void oninVisible(){
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();

@@ -59,7 +59,6 @@ public class OrderFrag extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myref = database.getReference("orders");
 
-
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -97,7 +96,6 @@ public class OrderFrag extends Fragment {
                     }
 
                 }
-
                 adapterOrder.notifyDataSetChanged();
                 Toast.makeText(getActivity(), "Load data thành công", Toast.LENGTH_SHORT).show();
             }
