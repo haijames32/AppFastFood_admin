@@ -39,8 +39,12 @@ public class Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
+//                String email = pref.getString("USERNAME", "");
+//                String passwd = pref.getString("USERPASS", "");
                 String email = ed_email_login.getText().toString();
                 String passwd = ed_pw_login.getText().toString();
+//
                 if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     if (!passwd.isEmpty()){
                         auth.signInWithEmailAndPassword(email,passwd)
