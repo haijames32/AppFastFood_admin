@@ -202,20 +202,20 @@ public class NewStaff extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     String msg = task.getResult().getUser().getUid();
-                        User user = new User(textName, textPhone, textLevel, textImage, textEmail, textPasswd);
-                        DatabaseReference reference = database.getReference("managers").child(msg);
-                        reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.i("user", "complete: " + user);
-                                    Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Thêm thất bại" , Toast.LENGTH_SHORT).show();
+                    User user = new User(textName, textPhone, textLevel, textImage, textEmail, textPasswd);
+                    DatabaseReference reference = database.getReference("managers").child(msg);
+                    reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.i("user", "complete: " + user);
+                                Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Thêm thất bại" , Toast.LENGTH_SHORT).show();
 
-                                }
                             }
-                        });
+                        }
+                    });
                 }else {
                     Toast.makeText(getApplicationContext(), "New member Failed " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
