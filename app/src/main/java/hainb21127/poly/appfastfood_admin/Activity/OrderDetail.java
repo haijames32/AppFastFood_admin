@@ -59,6 +59,7 @@ public class OrderDetail extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         mDetail = new ArrayList<>();
         detailAdapter = new OrderItemDetailAdapter(mDetail,getApplicationContext());
+        // abc
         LinearLayoutManager manager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
         rcvDetaiOrder.setLayoutManager(manager);
         rcvDetaiOrder.setAdapter(detailAdapter);
