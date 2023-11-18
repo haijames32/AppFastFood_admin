@@ -101,33 +101,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id ==R.id.nav_home){
             if (currentFragment!=FRAMENT_HOME){
                 replaceFragment(new HomeFrag());
-                toolbar.setTitle("Home");
+                toolbar.setTitle("Trang chủ");
                 currentFragment = FRAMENT_HOME;
             }
         }else if (id == R.id.nav_spham){
             if (currentFragment!=FRAMENT_SP){
                 replaceFragment(new ProductsFrag());
-                toolbar.setTitle("Products");
+                toolbar.setTitle("Sản phẩm");
                 currentFragment = FRAMENT_SP;
             }
         }else if (id == R.id.nav_cart){
             if (currentFragment!=FRAMENT_CART){
                 replaceFragment(new OrderFrag());
-                toolbar.setTitle("Cart");
+                toolbar.setTitle("Order");
                 currentFragment = FRAMENT_CART;
             }
 
         }else if (id == R.id.nav_user){
             if (currentFragment!=FRAMENT_USER){
                 replaceFragment(new MemberFrag());
-                toolbar.setTitle("User");
+                toolbar.setTitle("Quản lý nhân viên");
                 currentFragment = FRAMENT_USER;
             }
 
         }else if (id == R.id.nav_member){
             if (currentFragment!=FRAMENT_MEMBER){
                 replaceFragment(new UserFrag());
-                toolbar.setTitle("Member");
+                toolbar.setTitle("Khách hàng");
                 currentFragment = FRAMENT_MEMBER;
             }
         }else if (id == R.id.nav_thongke){
@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if (id == R.id.nav_gthieu){
             if (currentFragment!=FRAMENT_GTHIEU){
+                toolbar.setTitle("Đổi mật khẩu");
                 replaceFragment(new Profile());
                 currentFragment = FRAMENT_GTHIEU;
             }
