@@ -100,7 +100,6 @@ public class OrderDetail extends AppCompatActivity {
                             }else {
                                 Toast.makeText(view.getContext(), "Xác nhận đơn hàng không thành công", Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     });
                 }
