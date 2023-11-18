@@ -67,7 +67,7 @@ public class ThongKeAdapter extends BaseAdapter {
         } else {
             // Trả về một View trống để ẩn item
             view = new View(context);
-            view.setVisibility(View.GONE);
+            view.setVisibility(view.GONE);
         }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
