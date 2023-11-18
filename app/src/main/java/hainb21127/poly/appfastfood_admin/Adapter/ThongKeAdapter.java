@@ -31,7 +31,7 @@ public class ThongKeAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (mOrder != null)
-           return mOrder.size();
+            return mOrder.size();
         return 0;
     }
 
