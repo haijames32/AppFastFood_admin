@@ -41,12 +41,14 @@ public class ProductsDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
+
         tvName = findViewById(R.id.ed_name_detailsp);
+//        tvcate = findViewById(R.id.ed_search_cate_detail);
         tvPrice = findViewById(R.id.ed_gia_detailsp);
         tvMota = findViewById(R.id.ed_mota_detailsp);
         imgSp = findViewById(R.id.img_detailsp);
         btnBack = findViewById(R.id.btn_back_sp_detail);
-
+        // aa
         Intent intent = getIntent();
         String id = intent.getStringExtra("idPro");
         String name = intent.getStringExtra("namePro");

@@ -23,6 +23,8 @@ import hainb21127.poly.appfastfood_admin.config.Utilities;
 public class CategoryDetailAdapter extends BaseAdapter {
     Context context;
     private List<Products> aProducts;
+    private LayoutInflater inflater;
+
 
     public CategoryDetailAdapter(Context context) {
         this.context = context;
@@ -30,6 +32,8 @@ public class CategoryDetailAdapter extends BaseAdapter {
 
     public void setData(List<Products> arrayList) {
         this.aProducts = arrayList;
+//        this.inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         notifyDataSetChanged();
     }
 

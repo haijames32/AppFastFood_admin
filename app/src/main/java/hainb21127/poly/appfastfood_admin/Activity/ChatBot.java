@@ -59,22 +59,28 @@ public class ChatBot extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chats");
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     KhachHang kh = new KhachHang();
                     DatabaseReference reference1 = dataSnapshot.child("id_user").getRef();
-                    reference1.addValueEventListener(new ValueEventListener() {
+                    reference1.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot dataSnapshot3 : snapshot.getChildren()) {
                                 kh.setId(dataSnapshot3.getKey());
                                 kh.setFullname(dataSnapshot3.child("fullname").getValue(String.class));
                                 kh.setImage(dataSnapshot3.child("image").getValue(String.class));
-                            }
 
+                                Chat chat = new Chat();
+                                chat.setId(dataSnapshot.getKey());
+                                chat.setId_user(kh);
+                                mChat.add(chat);
+                            }
+                            rcvChat.setAdapter(chatAdapter);
+                            chatAdapter.notifyDataSetChanged();
                         }
 
 
@@ -83,14 +89,10 @@ public class ChatBot extends AppCompatActivity {
 
                         }
                     });
-                    Chat chat = new Chat();
-                    chat.setId(dataSnapshot.getKey());
-                    chat.setId_user(kh);
-                    mChat.add(chat);
+
 
                 }
-                rcvChat.setAdapter(chatAdapter);
-                chatAdapter.notifyDataSetChanged();
+
                 Log.d("TAG", "onDataChange: " + mChat.size());
                 Toast.makeText(ChatBot.this, "Load danh sách thành công", Toast.LENGTH_SHORT).show();
             }

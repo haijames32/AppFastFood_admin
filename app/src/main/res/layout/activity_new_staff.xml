@@ -8,14 +8,14 @@
     android:gravity="center"
     tools:context=".Activity.NewStaff">
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/btnStaff"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/prev_24" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/btnStaff"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/prev_24" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -156,5 +156,5 @@
                     android:text="Thêm"/>
             </LinearLayout>
         </LinearLayout>
-</FrameLayout>
+    </FrameLayout>
 </ScrollView>

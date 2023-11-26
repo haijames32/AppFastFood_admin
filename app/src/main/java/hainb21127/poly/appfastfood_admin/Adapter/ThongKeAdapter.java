@@ -58,29 +58,16 @@ public class ThongKeAdapter extends BaseAdapter {
         TextView total = view.findViewById(R.id.TkeTotal);
         ImageView avater = view.findViewById(R.id.imgTke);
 
-//        if (order.getStatus().equalsIgnoreCase("Đã giao hàng")) {
-//            status.setText(order.getStatus());
-//            date.setText(order.getDate());
-//            name.setText(order.getId_user().getFullname());
-//            total.setText(Utilities.addDots(order.getTong()));
-//            Picasso.get().load(order.getId_user().getImage()).into(avater);
-//        } else {
-//            // Trả về một View trống để ẩn item
-//            view = new View(context);
-//            view.setVisibility(View.GONE);
-//        }
-        if (status != null && order != null && order.getStatus() != null) {
-            if (order.getStatus().equalsIgnoreCase("Đã giao hàng")) {
-                status.setText(order.getStatus());
-                date.setText(order.getDate());
-                name.setText(order.getId_user().getFullname());
-                total.setText(Utilities.addDots(order.getTong()));
-                Picasso.get().load(order.getId_user().getImage()).into(avater);
-                // Rest of your code
-            } else {
-                view = new View(context);
-                mOrder.remove(order);
-            }
+        if (order.getStatus().equalsIgnoreCase("Đã giao hàng")) {
+            status.setText(order.getStatus());
+            date.setText(order.getDate());
+            name.setText(order.getId_user().getFullname());
+            total.setText(Utilities.addDots(order.getTong()));
+            Picasso.get().load(order.getId_user().getImage()).into(avater);
+        } else {
+            // Trả về một View trống để ẩn item
+            view = new View(context);
+            view.setVisibility(View.GONE);
         }
         view.setOnClickListener(new View.OnClickListener() {
             @Override

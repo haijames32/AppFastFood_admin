@@ -40,9 +40,9 @@ import hainb21127.poly.appfastfood_admin.DTO.MessageChat;
 import hainb21127.poly.appfastfood_admin.R;
 
 public class Messages extends AppCompatActivity {
-    private RecyclerView rcvChat;
+    private ListView rcvChat;
 //    ListView rcvChat;
-    MessAdapter messAdapter;
+    MessegerAdapter messAdapter;
     private List<MessageChat> mChat;
 //    MessegerAdapter adapter;
     TextView chatName;
@@ -58,12 +58,12 @@ public class Messages extends AppCompatActivity {
         setContentView(R.layout.activity_messages);
         rcvChat = findViewById(R.id.rcv_chatMess);
         edChat = findViewById(R.id.edtinputtext);
-        rcvChat.setLayoutManager(new LinearLayoutManager(this));
+//        rcvChat.setLayoutManager(new LinearLayoutManager(this));
         mChat = new ArrayList<>();
         FirebaseUser curUSer = FirebaseAuth.getInstance().getCurrentUser();
         currentUserId = curUSer.getUid();
 //        adapter = new TestAdapter(mChat,getApplicationContext(),currentUserId);
-        messAdapter = new MessAdapter(mChat, currentUserId);
+        messAdapter = new MessegerAdapter(getApplicationContext(),mChat);
 //        adapter = new MessegerAdapter(getApplicationContext(),mChat);
         chatName = findViewById(R.id.nameChatMess);
         btnBack = findViewById(R.id.btn_back_chat);

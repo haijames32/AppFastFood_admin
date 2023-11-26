@@ -216,6 +216,7 @@ public class NewProducts extends AppCompatActivity {
                     String id = dataSnapshot.getKey();
                     String categoryName = dataSnapshot.child("nameCat").getValue(String.class);
                     listCat.add(categoryName);
+//                    listCat.add(id_cat);
                     categoryToIdMap.put(categoryName, id);
                 }
 

@@ -22,12 +22,12 @@ public class User {
         this.passwd = passwd;
     }
 
-//    public User( String name, String phone, int level, String image,String email) {
-//        this.email = email;
+//    public User( String name, String phone, int level, String email,String passwd) {
 //        this.name = name;
 //        this.phone = phone;
 //        this.level = level;
-//        this.image = image;
+//        this.email = email;
+//        this.passwd = passwd;
 //    }
 
     public String getId() {

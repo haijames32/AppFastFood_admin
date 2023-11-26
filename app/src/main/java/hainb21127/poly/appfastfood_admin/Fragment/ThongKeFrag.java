@@ -45,6 +45,16 @@ public class ThongKeFrag extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        View root = inflater.inflate(R.layout.ThongkeFrag, container, false);
+//        lv = root.findViewById(R.id.fragment_thong_ke);
+//        Oder = new Order(getActivity());
+//        foodref = FirebaseFirestore.getInstance().collection("OrderItem");
+//        foodref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                Oder.getTop(lv, 0);
+//            }
+//        });
         super.onViewCreated(view, savedInstanceState);
         rcvTke = view.findViewById(R.id.rcvThongKe);
         tvTongDon = view.findViewById(R.id.tongDoanhThu);
