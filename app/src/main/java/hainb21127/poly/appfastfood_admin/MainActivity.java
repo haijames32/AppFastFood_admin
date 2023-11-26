@@ -120,14 +120,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if (id == R.id.nav_user){
             if (currentFragment!=FRAMENT_USER){
                 replaceFragment(new MemberFrag());
-                toolbar.setTitle("Staffs");
+                toolbar.setTitle("User");
                 currentFragment = FRAMENT_USER;
             }
 
         }else if (id == R.id.nav_member){
             if (currentFragment!=FRAMENT_MEMBER){
                 replaceFragment(new UserFrag());
-                toolbar.setTitle("Users");
+                toolbar.setTitle("Member");
                 currentFragment = FRAMENT_MEMBER;
             }
         }else if (id == R.id.nav_thongke){
@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if (id == R.id.nav_gthieu){
             if (currentFragment!=FRAMENT_GTHIEU){
-                toolbar.setTitle("Đổi mật khẩu");
                 replaceFragment(new Profile());
                 currentFragment = FRAMENT_GTHIEU;
             }

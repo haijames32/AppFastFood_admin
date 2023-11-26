@@ -184,34 +184,7 @@ public class HomeFrag extends Fragment {
             }
         });
     }
-    private void oninVisible1() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = currentUser.getUid();
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("managers").child(userId);
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Integer rolesInt = snapshot.child("level").getValue(Integer.class);
-                if (rolesInt != null) {
-                    // Nếu giá trị không phải là null, kiểm tra giá trị roles
-                    int roles = rolesInt.intValue();
-                    if (roles != 1) {
-                        tv_add.setVisibility(View.INVISIBLE);
-                    } else {
-                        tv_add.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Value null", Toast.LENGTH_LONG).show();
-                }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
     private void onInvisible() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
