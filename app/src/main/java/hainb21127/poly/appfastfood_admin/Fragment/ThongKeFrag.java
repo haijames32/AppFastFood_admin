@@ -95,16 +95,27 @@ public class ThongKeFrag extends Fragment {
                     }
 
                 }
-                rcvTke.setAdapter(thongKeAdapter);
-                thongKeAdapter.notifyDataSetChanged();
                 int total = 0;
                 for (int i = 0; i < thongKeAdapter.getCount(); i++) {
-                    Order cart = (Order) thongKeAdapter.getItem(i);
-                    if (cart.getStatus().equalsIgnoreCase("Đã giao hàng")) {
-                        total += cart.getTong();
-
+                    Order order = (Order) thongKeAdapter.getItem(i);
+                    if (order.getStatus().equalsIgnoreCase("Đã giao hàng")) {
+                        total += order.getTong();
+                    }else {
+                        mOrder.remove(order);
+                        i--;
                     }
                 }
+                rcvTke.setAdapter(thongKeAdapter);
+                thongKeAdapter.notifyDataSetChanged();
+
+
+//                for (int i = 0; i < thongKeAdapter.getCount(); i++) {
+//                    Order cart = (Order) thongKeAdapter.getItem(i);
+//                    if (cart.getStatus().equalsIgnoreCase("Đã giao hàng")) {
+//                        total += cart.getTong();
+//
+//                    }
+//                }
                 tvTongDon.setText(Utilities.addDots(total) + "đ");
                 int count = 0;
                 for (int i = 0; i < thongKeAdapter.getCount(); i++) {
